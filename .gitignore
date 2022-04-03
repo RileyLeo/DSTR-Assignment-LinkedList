@@ -33,6 +33,7 @@
 
 # All hidden files & folders
 .*
+Debug/*
 
 !/.gitignore
 .vs/DSTR-Assignment/v16/.suo
