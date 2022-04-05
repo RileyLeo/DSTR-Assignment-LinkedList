@@ -5,7 +5,7 @@
 class User
 {
 public:
-    unsigned int userId;
+    int userId;
     std::string username;
     std::string password;
     unsigned int userType; // 0-HR, 1-Admin, 2- Tutor
@@ -13,7 +13,7 @@ public:
     User *previousAddress;
 
     // constructor
-    User(unsigned int userId, std::string username, std::string password, unsigned int userType)
+    User(int userId, std::string username, std::string password, unsigned int userType)
     {
         this->userId = userId;
         this->username = username;
@@ -22,4 +22,4 @@ public:
         this->nextAddress = nullptr;
         this->previousAddress = nullptr;
     }
-} *head = NULL;
+} *userHead = NULL;
