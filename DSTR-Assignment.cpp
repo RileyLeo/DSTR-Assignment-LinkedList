@@ -6,7 +6,7 @@ int main()
 {
     // create all objects from header files
     User *user1 = new User(1, "woulin", "password1", 0);
-    Tutor *tutor1 = new Tutor(1, "weo", "tutorAddress1", "tutorPhoneNumber1", "dateJoined1", "dateTerminated1", 1, 1, 1, 1);
+    Tutor *tutor1 = new Tutor(1, "woulin", "123456789", "123 woulin street", "123456789", "01/01/2020", "01/01/2021", 0, 0, 1, 1);
     Subject *subject1 = new Subject(1, "wrogramming", 1);
     Centre *centre1 = new Centre(1, "wark hill", "centreLocation1", 1);
 
