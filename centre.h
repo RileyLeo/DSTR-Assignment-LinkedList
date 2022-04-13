@@ -5,21 +5,36 @@
 class Centre
 {
 public:
-    int centreId;
+    int id;
     std::string centreName;
     std::string centreLocation;
     int adminId;
-    Centre *nextAddress;
-    Centre *previousAddress;
+    Centre *nextAddress = NULL;
+    Centre *previousAddress = NULL;
 
-    // constructor
-    Centre(int centreId, std::string centreName, std::string centreLocation, int adminId)
+    // constructor with parameters
+    Centre(int id, std::string centreName, std::string centreLocation, int adminId)
     {
-        this->centreId = centreId;
+        this->id = id;
         this->centreName = centreName;
         this->centreLocation = centreLocation;
         this->adminId = adminId;
-        this->nextAddress = nullptr;
-        this->previousAddress = nullptr;
+        this->nextAddress = NULL;
+        this->previousAddress = NULL;
+    };
+
+    // displayCentreList
+    void displayCentreList()
+    {
+        while (centreHead != NULL)
+        {
+            std::cout << "Centre ID: " << centreHead->id << std::endl;
+            std::cout << "Centre Name: " << centreHead->centreName << std::endl;
+            std::cout << "Centre Location: " << centreHead->centreLocation << std::endl;
+            std::cout << "Admin ID: " << centreHead->adminId << std::endl
+                      << std::endl;
+            centreHead = centreHead->nextAddress;
+        }
     }
-} *centreHead = NULL;
+
+} *centreHead = NULL, *centreTail = NULL;

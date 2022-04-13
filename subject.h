@@ -5,19 +5,33 @@
 class Subject
 {
 public:
-    int subjectId;
+    int id;
     std::string subjectName;
     double hourlyPayRate;
-    Subject *nextAddress;
-    Subject *previousAddress;
+    Subject *nextAddress = NULL;
+    Subject *previousAddress = NULL;
 
-    // constructor
-    Subject(int subjectId, std::string subjectName, double hourlyPayRate)
+    // constructor with parameters
+    Subject(int id, std::string subjectName, double hourlyPayRate)
     {
-        this->subjectId = subjectId;
+        this->id = id;
         this->subjectName = subjectName;
         this->hourlyPayRate = hourlyPayRate;
-        this->nextAddress = nullptr;
-        this->previousAddress = nullptr;
+        this->nextAddress = NULL;
+        this->previousAddress = NULL;
+    };
+
+    // displaySubjectList
+    void displaySubjectList()
+    {
+        while (subjectHead != NULL)
+        {
+            std::cout << "Subject ID: " << subjectHead->id << std::endl;
+            std::cout << "Subject Name: " << subjectHead->subjectName << std::endl;
+            std::cout << "Hourly Pay Rate: " << subjectHead->hourlyPayRate << std::endl
+                      << std::endl;
+            subjectHead = subjectHead->nextAddress;
+        }
     }
-} *subjectHead = NULL;
+
+} *subjectHead = NULL, *subjectTail = NULL;

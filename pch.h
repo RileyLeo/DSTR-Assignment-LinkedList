@@ -9,9 +9,5 @@
 
 // add headers that you want to pre-compile here
 #include "includes.h"
-#include "user.h"
-#include "centre.h"
-#include "subject.h"
-#include "tutor.h"
 
 #endif // PCH_H

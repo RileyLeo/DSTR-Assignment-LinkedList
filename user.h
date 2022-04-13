@@ -5,21 +5,36 @@
 class User
 {
 public:
-    int userId;
+    int id;
     std::string username;
     std::string password;
     unsigned int userType; // 0-HR, 1-Admin, 2- Tutor
-    User *nextAddress;
-    User *previousAddress;
+    User *nextAddress = NULL;
+    User *previousAddress = NULL;
 
     // constructor
-    User(int userId, std::string username, std::string password, unsigned int userType)
+    User(int id, std::string username, std::string password, unsigned int userType)
     {
-        this->userId = userId;
+        this->id = id;
         this->username = username;
         this->password = password;
         this->userType = userType;
-        this->nextAddress = nullptr;
-        this->previousAddress = nullptr;
+        this->nextAddress = NULL;
+        this->previousAddress = NULL;
+    };
+
+} * userHead, *userTail;
+
+// print user list
+void displayUserList()
+{
+    while (userHead != NULL)
+    {
+        std::cout << "User ID: " << userHead->id << std::endl;
+        std::cout << "Username: " << userHead->username << std::endl;
+        std::cout << "Password: " << userHead->password << std::endl;
+        std::cout << "User Type: " << userHead->userType << std::endl
+                  << std::endl;
+        userHead = userHead->nextAddress;
     }
-} *userHead = NULL;
+}

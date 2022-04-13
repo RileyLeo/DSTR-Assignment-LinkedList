@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="centre.h" />
+    <ClInclude Include="functions.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="subject.h" />
