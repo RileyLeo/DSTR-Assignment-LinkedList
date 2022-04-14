@@ -38,25 +38,26 @@ public:
         this->nextAddress = NULL;
         this->previousAddress = NULL;
     };
+} * tutorHead, *tutorTail;
 
-    // displayTutorList
-    void displayTutorList()
+// displayTutorList
+void displayTutorList()
+{
+    Tutor *current = tutorHead;
+    while (current != NULL)
     {
-        while (tutorHead != NULL)
-        {
-            std::cout << "Tutor ID: " << tutorHead->id << std::endl;
-            std::cout << "Tutor Name: " << tutorHead->tutorName << std::endl;
-            std::cout << "Tutor Address: " << tutorHead->tutorAddress << std::endl;
-            std::cout << "Tutor Phone Number: " << tutorHead->tutorPhoneNumber << std::endl;
-            std::cout << "Date Joined: " << tutorHead->dateJoined << std::endl;
-            std::cout << "Date Terminated: " << tutorHead->dateTerminated << std::endl;
-            std::cout << "Total Ratings: " << tutorHead->totalRatings << std::endl;
-            std::cout << "Rating Count: " << tutorHead->ratingCount << std::endl;
-            std::cout << "Centre ID: " << tutorHead->centreId << std::endl;
-            std::cout << "Subject ID: " << tutorHead->subjectId << std::endl
-                      << std::endl;
-            tutorHead = tutorHead->nextAddress;
-        }
+        std::cout << "Tutor ID: " << current->id << std::endl;
+        std::cout << "Tutor Name: " << current->tutorName << std::endl;
+        std::cout << "Tutor Address: " << current->tutorAddress << std::endl;
+        std::cout << "Tutor Phone Number: " << current->tutorPhoneNumber << std::endl;
+        std::cout << "Date Joined: " << current->dateJoined << std::endl;
+        std::cout << "Date Terminated: " << current->dateTerminated << std::endl;
+        std::cout << "Total Ratings: " << current->totalRatings << std::endl;
+        std::cout << "Rating Count: " << current->ratingCount << std::endl;
+        std::cout << "Centre ID: " << current->centreId << std::endl;
+        std::cout << "Subject ID: " << current->subjectId << std::endl
+                  << std::endl;
+        current = current->nextAddress;
     }
-
-} *tutorHead = NULL, *tutorTail = NULL;
+    delete current;
+}

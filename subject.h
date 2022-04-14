@@ -21,17 +21,19 @@ public:
         this->previousAddress = NULL;
     };
 
-    // displaySubjectList
-    void displaySubjectList()
-    {
-        while (subjectHead != NULL)
-        {
-            std::cout << "Subject ID: " << subjectHead->id << std::endl;
-            std::cout << "Subject Name: " << subjectHead->subjectName << std::endl;
-            std::cout << "Hourly Pay Rate: " << subjectHead->hourlyPayRate << std::endl
-                      << std::endl;
-            subjectHead = subjectHead->nextAddress;
-        }
-    }
+} * subjectHead, *subjectTail;
 
-} *subjectHead = NULL, *subjectTail = NULL;
+// displaySubjectList
+void displaySubjectList()
+{
+    Subject *current = subjectHead;
+    while (current != NULL)
+    {
+        std::cout << "Subject ID: " << current->id << std::endl;
+        std::cout << "Subject Name: " << current->subjectName << std::endl;
+        std::cout << "Hourly Pay Rate: " << current->hourlyPayRate << std::endl
+                  << std::endl;
+        current = current->nextAddress;
+    }
+    delete current;
+}

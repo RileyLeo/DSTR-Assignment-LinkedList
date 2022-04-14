@@ -28,13 +28,15 @@ public:
 // print user list
 void displayUserList()
 {
-    while (userHead != NULL)
+    User *current = userHead;
+    while (current != NULL)
     {
-        std::cout << "User ID: " << userHead->id << std::endl;
-        std::cout << "Username: " << userHead->username << std::endl;
-        std::cout << "Password: " << userHead->password << std::endl;
-        std::cout << "User Type: " << userHead->userType << std::endl
+        std::cout << "User ID: " << current->id << std::endl;
+        std::cout << "Username: " << current->username << std::endl;
+        std::cout << "Password: " << current->password << std::endl;
+        std::cout << "User Type: " << current->userType << std::endl
                   << std::endl;
-        userHead = userHead->nextAddress;
+        current = current->nextAddress;
     }
+    delete current;
 }

@@ -32,11 +32,16 @@ int getListSize(T *head)
 // ---------------------------------------------- Searching Alorithm ----------------------------------------------
 // linear search for doubly linked list and return object reference
 template <class T>
-T *linearSearch(T *head, T *tail, int id)
+T *linearSearch(T *&head, T *&tail, int id)
 {
-    T *current;
+    // check if id out of range, return NULL
+    if (id < 0 || id > tail->id)
+    {
+        return NULL;
+    }
+
     // if id is closer to the end of the list, start searching from the end and traverse backwards
-    ((id - head->id) <= (tail->id - id)) ? current = head : current = tail;
+    T *current = ((id - head->id) <= (tail->id - id)) ? head : tail;
     while (current != NULL)
     {
         if (current->id == id)
