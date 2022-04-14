@@ -50,11 +50,27 @@ T *linearSearch(T *&head, T *&tail, int id)
         }
         else if (current->id > id)
         {
-            current = current->previousAddress;
+            // if node is deleted and not found, return NULL
+            if (current->previousAddress->id < id)
+            {
+                return NULL;
+            }
+            else
+            {
+                current = current->previousAddress;
+            }
         }
         else
         {
-            current = current->nextAddress;
+            // if node is deleted and not found, return NULL
+            if (current->nextAddress->id > id)
+            {
+                return NULL;
+            }
+            else
+            {
+                current = current->nextAddress;
+            }
         }
     }
     return NULL;
