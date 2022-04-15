@@ -26,12 +26,13 @@ int main()
     insertAtEnd(user2, userHead, userTail);
 
     // function testing
-    displayUserList();
-
     cout << getDateToday() << endl;
 
     User *user3 = linearSearch(userHead, userTail, 1);
     cout << user3->id << endl;
+
+    deleteNode(userHead, userTail, 4);
+    displayUserList();
 
     return 0;
 }

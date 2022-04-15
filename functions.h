@@ -4,6 +4,7 @@
 #include "includes.h"
 #include "pch.h"
 
+// ---------------------------------------------- General Functions ----------------------------------------------
 // get date today in DD/MM/YYYY
 std::string getDateToday()
 {
@@ -92,6 +93,41 @@ void insertAtEnd(T *newObject, T *&head, T *&tail)
         newObject->previousAddress = tail;
         tail = newObject;
     }
+}
+
+template <class T>
+void deleteNode(T *&head, T *&tail, int objectID)
+{
+    T *current = linearSearch(head, tail, objectID);
+
+    if (head == NULL || current == NULL)
+    {
+        std::cout << "No object found with ID: " << objectID << std::endl
+                  << std::endl;
+        return;
+    }
+
+    if (head == current)
+    {
+        head = current->nextAddress;
+    }
+
+    if (tail == current)
+    {
+        tail = current->previousAddress;
+    }
+
+    if (current->nextAddress != NULL)
+    {
+        current->nextAddress->previousAddress = current->previousAddress;
+    }
+
+    if (current->previousAddress != NULL)
+    {
+        current->previousAddress->nextAddress = current->nextAddress;
+    }
+
+    delete current;
 }
 
 #endif // PCH_H
