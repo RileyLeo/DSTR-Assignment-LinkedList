@@ -33,6 +33,7 @@ int main()
 
     deleteNode(userHead, userTail, 4);
     displayUserList();
+    User *userLogin = login(userHead);
 
     return 0;
 }

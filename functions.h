@@ -30,6 +30,52 @@ int getListSize(T *head)
     return size;
 }
 
+// helper for login function
+template <class User>
+User *loginLinearSearch(std::string username, std::string password, User *head)
+{
+    User *current = head;
+    while (current != NULL)
+    {
+        if (current->username == username && current->password == password)
+        {
+            return current;
+        }
+        current = current->nextAddress;
+    }
+    return NULL;
+}
+
+// login function that searches with username and password
+template <class User>
+User *login(User *head)
+{
+    std::string username;
+    std::string password;
+    std::cout << "Welcome to eXcel Tuition Management System" << std::endl;
+    std::cout << "Please login to proceed" << std::endl;
+    std::cout << "Username: ";
+    std::cin >> username;
+    std::cout << "Password: ";
+    std::cin >> password;
+    std::cout << std::endl;
+    User *user = loginLinearSearch(username, password, head);
+    while (user == NULL)
+    {
+        std::cout << "Username or password is incorrect. Please try again." << std::endl;
+        std::cout << "Username: ";
+        std::cin >> username;
+        std::cout << "Password: ";
+        std::cin >> password;
+        std::cout << std::endl;
+        user = loginLinearSearch(username, password, head);
+    }
+    std::cout << "Login Successful!" << std::endl;
+    std::cout << "Welcome " << user->username << "!" << std::endl;
+    std::cout << std::endl;
+    return user;
+}
+
 // ---------------------------------------------- Searching Alorithm ----------------------------------------------
 // linear search for doubly linked list and return object reference
 template <class T>
