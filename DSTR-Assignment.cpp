@@ -16,24 +16,38 @@ int main()
     centreHead = centreTail = NULL;
     tutorHead = tutorTail = NULL;
     // create new user object
-    User *user = new User(getListSize(userHead), "HR1", "password", 0);
+    User *user = new User(getListSize(userHead), "hr", "123", 0);
     insertAtEnd(user, userHead, userTail);
 
-    User *user1 = new User(getListSize(userHead), "HR2", "password", 0);
+    User *user1 = new User(getListSize(userHead), "admin", "123", 1);
     insertAtEnd(user1, userHead, userTail);
 
-    User *user2 = new User(getListSize(userHead), "HR3", "password", 0);
+    User *user2 = new User(getListSize(userHead), "tutor", "123", 2);
     insertAtEnd(user2, userHead, userTail);
 
     // function testing
-    cout << getDateToday() << endl;
+    // cout << getDateToday() << endl;
 
-    User *user3 = linearSearch(userHead, userTail, 1);
-    cout << user3->id << endl;
+    // User *user3 = linearSearch(userHead, userTail, 1);
+    // cout << user3->id << endl;
 
-    deleteNode(userHead, userTail, 4);
-    displayUserList();
+    // deleteNode(userHead, userTail, 4);
+    // displayUserList();
+    // end of function testing
+
     User *userLogin = login(userHead);
+    if (userLogin->id == 0)
+    {
+        displayHrMenu();
+    }
+    else if (userLogin->id == 1)
+    {
+        displayAdminMenu();
+    }
+    else
+    {
+        displayTutorMenu();
+    }
 
     return 0;
 }
