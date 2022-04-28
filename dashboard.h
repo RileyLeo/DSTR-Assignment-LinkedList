@@ -30,8 +30,61 @@ void displayHrMenu()
     switch (input)
     {
     case 1:
-        manageUsers();
-        break;
+        system("cls");
+        // view user
+        std::cout << "1 - View All Users" << std::endl;
+        // search user
+        std::cout << "2 - Search User" << std::endl;
+        // add user
+        std::cout << "3 - Add User" << std::endl;
+        // edit user
+        std::cout << "4 - Edit User" << std::endl;
+        // delete user
+        std::cout << "5 - Delete User" << std::endl;
+        // exit
+        std::cout << "6 - Back" << std::endl;
+
+        int input;
+        std::cout << "Enter your choice: ";
+        std::cin >> input;
+
+        while (!std::cin.good() || input < 1 || input > 6)
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "Enter your choice: ";
+            std::cin >> input;
+        }
+
+        if (input == 1)
+        {
+            displayUserList();
+        }
+        else if (input == 2)
+        {
+            // searchUser();
+        }
+        else if (input == 3)
+        {
+
+            User *newUser = addUser();
+            insertAtEnd(newUser, userHead, userTail);
+            displayUserList();
+        }
+        else if (input == 4)
+        {
+            // editUser();
+        }
+        else if (input == 5)
+        {
+            // deleteUser();
+        }
+        else if (input == 6)
+        {
+            system("cls");
+            displayHrMenu();
+        }
     case 2:
         // manageCentres();
         break;
