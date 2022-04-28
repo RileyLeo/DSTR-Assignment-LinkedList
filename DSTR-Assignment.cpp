@@ -4,6 +4,7 @@
 #include "centre.h"
 #include "subject.h"
 #include "tutor.h"
+#include "dashboard.h"
 
 using namespace std;
 // insert at end of the list
