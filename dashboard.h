@@ -12,7 +12,7 @@ void displayHrMenu()
     std::cout << "4 - Manage Tutors" << std::endl;
     std::cout << "5 - Add Ratings" << std::endl;
     std::cout << "6 - View Tutor Archive" << std::endl;
-    std::cout << "7 - Logout" << std::endl;
+    std::cout << "7 - Exit Program" << std::endl;
 
     int input;
     std::cout << "Enter your choice: ";
@@ -57,28 +57,51 @@ void displayHrMenu()
             std::cin >> input;
         }
 
+        // view all users
         if (input == 1)
         {
+            std::cout << std::endl;
             displayUserList();
+            displayHrMenu();
         }
+        // search user
         else if (input == 2)
         {
-            // searchUser();
+            std::cout << std::endl
+                      << "Enter the id of the user to search: ";
+            int id;
+            std::cin >> id;
+            std::cout << std::endl;
+            User *user = linearSearch(userHead, userTail, id);
+            displayUser(user);
+            std::cout << std::endl;
+            displayHrMenu();
         }
+        // add user
         else if (input == 3)
         {
 
             User *newUser = addUser();
             insertAtEnd(newUser, userHead, userTail);
-            displayUserList();
+            std::cout << std::endl;
+            displayHrMenu();
         }
+        // edit user
         else if (input == 4)
         {
             // editUser();
         }
+        // edit user
         else if (input == 5)
         {
-            // deleteUser();
+            std::cout << std::endl
+                      << "Enter the id of the user to be deleted: ";
+            int id;
+            std::cin >> id;
+            std::cout << std::endl;
+            deleteNode(userHead, userTail, id);
+            std::cout << std::endl;
+            displayHrMenu();
         }
         else if (input == 6)
         {
@@ -101,7 +124,8 @@ void displayHrMenu()
         // viewTutorArchive();
         break;
     case 7:
-        // logout();
+        std::cout << "Exiting program..." << std::endl;
+        return;
         break;
     }
 }
@@ -112,7 +136,7 @@ void displayAdminMenu()
     std::cout << "2 - View All Subjects" << std::endl;
     std::cout << "3 - Add Ratings" << std::endl;
     std::cout << "4 - View Tutor Archive" << std::endl;
-    std::cout << "5 - Logout" << std::endl;
+    std::cout << "5 - Exit Program" << std::endl;
 
     int input;
     std::cout << "Enter your choice: ";
@@ -142,7 +166,8 @@ void displayAdminMenu()
         // viewTutorArchive();
         break;
     case 5:
-        // logout();
+        std::cout << "Exiting program..." << std::endl;
+        return;
         break;
     }
 }
@@ -152,7 +177,7 @@ void displayTutorMenu()
     std::cout << "1 - View Centre Details" << std::endl;
     std::cout << "2 - View Subject Details" << std::endl;
     std::cout << "3 - View Tutor Details" << std::endl;
-    std::cout << "4 - Logout" << std::endl;
+    std::cout << "4 - Exit Program" << std::endl;
 
     int input;
     std::cout << "Enter your choice: ";
@@ -179,7 +204,8 @@ void displayTutorMenu()
         // viewTutorDetails();
         break;
     case 4:
-        // logout();
+        std::cout << "Exiting program..." << std::endl;
+        return;
         break;
     }
 }

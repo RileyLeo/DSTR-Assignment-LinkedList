@@ -174,6 +174,7 @@ void deleteNode(T *&head, T *&tail, int objectID)
     }
 
     delete current;
+    std::cout << "Object with ID: " << objectID << " deleted successfully!" << std::endl;
 }
 
 #endif // PCH_H

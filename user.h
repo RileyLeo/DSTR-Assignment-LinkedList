@@ -42,6 +42,29 @@ void displayUserList()
     delete current;
 }
 
+void displayUser(User *user)
+{
+    // cout all the attributes
+    std::string userRole;
+    if (user->userType == 0)
+    {
+        userRole = "HR";
+    }
+    else if (user->userType == 1)
+    {
+        userRole = "Admin";
+    }
+    else
+    {
+        userRole = "Tutor";
+    }
+    std::cout << "User ID: " << user->id << std::endl;
+    std::cout << "Username: " << user->username << std::endl;
+    std::cout << "Password: " << user->password << std::endl;
+    std::cout << "User Type: " << user->userType << " - " << userRole << std::endl;
+    std::cout << std::endl;
+}
+
 User *addUser()
 {
     // prompt for input to fill in constructor
@@ -67,7 +90,7 @@ User *addUser()
     }
 
     // create new user
-    User *newUser = new User(getListSize(userHead), username, password, userType);
+    User *newUser = new User((userTail != NULL) ? userTail->id + 1 : getListSize(userHead), username, password, userType);
     std::cout << "User created successfully" << std::endl;
     return newUser;
 }
