@@ -64,6 +64,7 @@ Centre *addCentre()
     std::string centreName;
     std::string centreLocation;
     int adminId;
+    std::cout << "Please enter the following to create a new centre:" << std::endl;
     std::cout << "Enter the centre name: ";
     std::cin >> centreName;
     std::cout << "Enter the centre location: ";
@@ -99,6 +100,6 @@ Centre *addCentre()
 
     // create new centre
     Centre *newCentre = new Centre((centreTail != NULL) ? centreTail->id + 1 : getListSize(centreHead), centreName, centreLocation, adminId);
-    std::cout << "New Centre Created" << std::endl;
+    std::cout << "New Centre has been added" << std::endl;
     return newCentre;
 }

@@ -78,7 +78,7 @@ void displayHrMenu()
 
     switch (input)
     {
-        // ----------------------------------------- Manage Users -----------------------------------------
+        // ---------------------------------------------------------------------------------- Manage Users ----------------------------------------------------------------------------------
     case 1:
         choice = manageObject(1);
         // view all users
@@ -127,6 +127,15 @@ void displayHrMenu()
                       << "Enter the id of the user to be deleted: ";
             int id;
             std::cin >> id;
+            // check for invalid input for id
+            while (!std::cin.good() || id < 0)
+            {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please try again." << std::endl;
+                std::cout << "Enter the id of the user to be deleted: ";
+                std::cin >> id;
+            }
             std::cout << std::endl;
             deleteNode(userHead, userTail, id);
             std::cout << std::endl;
@@ -137,7 +146,7 @@ void displayHrMenu()
             system("cls");
             displayHrMenu();
         }
-        // ----------------------------------------- Manage Centres -----------------------------------------
+        // ---------------------------------------------------------------------------------- Manage Centres ----------------------------------------------------------------------------------
     case 2:
         choice = manageObject(2);
         // view all centres
@@ -178,7 +187,6 @@ void displayHrMenu()
         // edit centre
         else if (choice == 4)
         {
-            // editCentre();
         }
         // delete centre
         else if (choice == 5)
@@ -187,6 +195,15 @@ void displayHrMenu()
                       << "Enter the id of the centre to be deleted: ";
             int id;
             std::cin >> id;
+            // check for invalid input for id
+            while (!std::cin.good() || id < 0)
+            {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please try again." << std::endl;
+                std::cout << "Enter the id of the centre to be deleted: ";
+                std::cin >> id;
+            }
             std::cout << std::endl;
             deleteNode(centreHead, centreTail, id);
             std::cout << std::endl;
@@ -198,8 +215,73 @@ void displayHrMenu()
             displayHrMenu();
         }
     case 3:
-        // manageSubjects();
-        break;
+        // ---------------------------------------------------------------------------------- Manage Subjects ----------------------------------------------------------------------------------
+        choice = manageObject(3);
+        // view all subjects
+        if (choice == 1)
+        {
+            std::cout << std::endl;
+            displaySubjectList();
+            displayHrMenu();
+        }
+        // search subject
+        else if (choice == 2)
+        {
+            std::cout << std::endl
+                      << "Enter the id of the subject to search: ";
+            int id;
+            std::cin >> id;
+            std::cout << std::endl;
+            Subject *subject = linearSearch(subjectHead, subjectTail, id);
+            if (subject != NULL)
+            {
+                displaySubject(subject);
+            }
+            else
+            {
+                std::cout << "Subject not found." << std::endl;
+            }
+            std::cout << std::endl;
+            displayHrMenu();
+        }
+        // add Subject
+        else if (choice == 3)
+        {
+            Subject *newSubject = addSubject();
+            insertAtEnd(newSubject, subjectHead, subjectTail);
+            std::cout << std::endl;
+            displayHrMenu();
+        }
+        // edit subject
+        else if (choice == 4)
+        {
+        }
+        // delete subject
+        else if (choice == 5)
+        {
+            std::cout << std::endl
+                      << "Enter the id of the subject to be deleted: ";
+            int id;
+            std::cin >> id;
+            // check for invalid input for id
+            while (!std::cin.good() || id < 0)
+            {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please try again." << std::endl;
+                std::cout << "Enter the id of the subject to be deleted: ";
+                std::cin >> id;
+            }
+            std::cout << std::endl;
+            deleteNode(subjectHead, subjectTail, id);
+            std::cout << std::endl;
+            displayHrMenu();
+        }
+        else if (choice == 6)
+        {
+            system("cls");
+            displayHrMenu();
+        }
     case 4:
         // manageTutors();
         break;
