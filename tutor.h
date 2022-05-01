@@ -43,6 +43,13 @@ public:
 // displayTutorList
 void displayTutorList()
 {
+    // if tutor list is empty
+    if (tutorHead == NULL)
+    {
+        std::cout << "Tutor list is empty" << std::endl;
+        return;
+    }
+
     Tutor *current = tutorHead;
     while (current != NULL)
     {

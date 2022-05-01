@@ -66,7 +66,7 @@ template <class T>
 T *linearSearch(T *&head, T *&tail, int id)
 {
     // check if id out of range, return NULL
-    if (id < 0 || id > tail->id)
+    if (id < 0 || id > getListSize(head) || head == NULL)
     {
         return NULL;
     }

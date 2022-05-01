@@ -26,6 +26,13 @@ public:
 // displaySubjectList
 void displaySubjectList()
 {
+    // if subject list is empty
+    if (subjectHead == NULL)
+    {
+        std::cout << "Subject list is empty" << std::endl;
+        return;
+    }
+
     Subject *current = subjectHead;
     while (current != NULL)
     {

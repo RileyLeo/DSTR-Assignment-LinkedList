@@ -28,6 +28,13 @@ public:
 // displayCentreList
 void displayCentreList()
 {
+    // if centre list is empty
+    if (centreHead == NULL)
+    {
+        std::cout << "Centre list is empty" << std::endl;
+        return;
+    }
+
     Centre *current = centreHead;
     while (current != NULL)
     {
@@ -39,4 +46,59 @@ void displayCentreList()
         current = current->nextAddress;
     }
     delete current;
+}
+
+void displayCentre(Centre *centre)
+{
+    // cout all the attributes
+    std::cout << "Centre ID: " << centre->id << std::endl;
+    std::cout << "Centre Name: " << centre->centreName << std::endl;
+    std::cout << "Centre Location: " << centre->centreLocation << std::endl;
+    std::cout << "Admin ID: " << centre->adminId << std::endl;
+    std::cout << std::endl;
+}
+
+Centre *addCentre()
+{
+    // prompt for input to fill in constructor
+    std::string centreName;
+    std::string centreLocation;
+    int adminId;
+    std::cout << "Enter the centre name: ";
+    std::cin >> centreName;
+    std::cout << "Enter the centre location: ";
+    std::cin >> centreLocation;
+    std::cout << "Enter the admin id: ";
+    std::cin >> adminId;
+
+    // adminId must be an existing admin
+    while (!std::cin.good() || adminId < 0 || adminId > getListSize(userHead))
+    {
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the admin id: ";
+        std::cin >> adminId;
+    }
+    bool flag = true;
+    while (flag)
+    {
+        User *admin = linearSearch(userHead, userTail, adminId);
+        if (admin->userType != 1)
+        {
+            std::cout << "User is not an admin" << std::endl;
+            std::cout << "Enter the admin id: ";
+            std::cin >> adminId;
+        }
+        else
+        {
+            flag = false;
+        }
+    }
+
+    // create new centre
+    Centre *newCentre = new Centre((centreTail != NULL) ? centreTail->id + 1 : getListSize(centreHead), centreName, centreLocation, adminId);
+    std::cout << "New Centre Created" << std::endl;
+    return newCentre;
 }

@@ -29,7 +29,15 @@ public:
 // print user list
 void displayUserList()
 {
+    // if user list is empty
+    if (userHead == NULL)
+    {
+        std::cout << "User list is empty" << std::endl;
+        return;
+    }
+
     User *current = userHead;
+
     while (current != NULL)
     {
         std::cout << "User ID: " << current->id << std::endl;
@@ -93,63 +101,4 @@ User *addUser()
     User *newUser = new User((userTail != NULL) ? userTail->id + 1 : getListSize(userHead), username, password, userType);
     std::cout << "User created successfully" << std::endl;
     return newUser;
-}
-
-void manageUsers()
-{
-    system("cls");
-    // view user
-    std::cout << "1 - View All Users" << std::endl;
-    // search user
-    std::cout << "2 - Search User" << std::endl;
-    // add user
-    std::cout << "3 - Add User" << std::endl;
-    // edit user
-    std::cout << "4 - Edit User" << std::endl;
-    // delete user
-    std::cout << "5 - Delete User" << std::endl;
-    // exit
-    std::cout << "6 - Back" << std::endl;
-
-    int input;
-    std::cout << "Enter your choice: ";
-    std::cin >> input;
-
-    while (!std::cin.good() || input < 1 || input > 6)
-    {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Invalid input. Please try again." << std::endl;
-        std::cout << "Enter your choice: ";
-        std::cin >> input;
-    }
-
-    if (input == 1)
-    {
-        displayUserList();
-    }
-    else if (input == 2)
-    {
-        // searchUser();
-    }
-    else if (input == 3)
-    {
-
-        User *newUser = addUser();
-        insertAtEnd(newUser, userHead, userTail);
-        displayUserList();
-    }
-    else if (input == 4)
-    {
-        // editUser();
-    }
-    else if (input == 5)
-    {
-        // deleteUser();
-    }
-    else if (input == 6)
-    {
-        system("cls");
-        return;
-    }
 }
