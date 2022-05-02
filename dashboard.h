@@ -351,8 +351,9 @@ void displayHrMenu()
             displayHrMenu();
         }
     case 5:
-        // addRatings();
-        break;
+        // ---------------------------------------------------------------------------------- Add Ratings ----------------------------------------------------------------------------------
+        addRating();
+        displayHrMenu();
     case 6:
         // viewTutorArchive();
         break;

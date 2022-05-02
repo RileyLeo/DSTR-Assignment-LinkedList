@@ -167,3 +167,45 @@ Tutor *addTutor()
     std::cout << "New tutor profile created successfully" << std::endl;
     return newTutor;
 }
+
+void addRating()
+{
+    std::cout << "Enter the id of the tutor to rate: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the tutor to rate: ";
+        std::cin >> id;
+    }
+    Tutor *tutor = linearSearch(tutorHead, tutorTail, id);
+    if (tutor == NULL)
+    {
+        std::cout << "Tutor not found. Please try again." << std::endl;
+        addRating();
+    }
+    else
+    {
+        std::cout << "Currently rating " << tutor->tutorName << "." << std::endl;
+        std::cout << "Enter the rating: ";
+        int rating;
+        std::cin >> rating;
+        // check for invalid input for rating
+        while (!std::cin.good() || rating < 0 || rating > 5)
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please make sure rating are values between 1 and 5." << std::endl;
+            std::cout << "Enter the rating: ";
+            std::cin >> rating;
+        }
+        std::cout << std::endl;
+        tutor->totalRatings += rating;
+        tutor->ratingCount += 1;
+        std::cout << "New rating has been added." << std::endl;
+    }
+}
