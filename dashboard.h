@@ -283,8 +283,73 @@ void displayHrMenu()
             displayHrMenu();
         }
     case 4:
-        // manageTutors();
-        break;
+        // ---------------------------------------------------------------------------------- Manage Tutors ----------------------------------------------------------------------------------
+        choice = manageObject(4);
+        // view all tutors
+        if (choice == 1)
+        {
+            std::cout << std::endl;
+            displayTutorList();
+            displayHrMenu();
+        }
+        // search tutor
+        else if (choice == 2)
+        {
+            std::cout << std::endl
+                      << "Enter the id of the tutor to search: ";
+            int id;
+            std::cin >> id;
+            std::cout << std::endl;
+            Tutor *tutor = linearSearch(tutorHead, tutorTail, id);
+            if (tutor != NULL)
+            {
+                displayTutor(tutor);
+            }
+            else
+            {
+                std::cout << "Tutor not found." << std::endl;
+            }
+            std::cout << std::endl;
+            displayHrMenu();
+        }
+        // add Tutor
+        else if (choice == 3)
+        {
+            Tutor *newTutor = addTutor();
+            insertAtEnd(newTutor, tutorHead, tutorTail);
+            std::cout << std::endl;
+            displayHrMenu();
+        }
+        // edit tutor
+        else if (choice == 4)
+        {
+        }
+        // delete tutor
+        else if (choice == 5)
+        {
+            std::cout << std::endl
+                      << "Enter the id of the tutor to be deleted: ";
+            int id;
+            std::cin >> id;
+            // check for invalid input for id
+            while (!std::cin.good() || id < 0)
+            {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please try again." << std::endl;
+                std::cout << "Enter the id of the subject to be deleted: ";
+                std::cin >> id;
+            }
+            std::cout << std::endl;
+            deleteNode(tutorHead, tutorTail, id);
+            std::cout << std::endl;
+            displayHrMenu();
+        }
+        else if (choice == 6)
+        {
+            system("cls");
+            displayHrMenu();
+        }
     case 5:
         // addRatings();
         break;
