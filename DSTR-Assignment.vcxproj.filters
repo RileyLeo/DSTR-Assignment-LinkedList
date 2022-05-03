@@ -47,5 +47,8 @@
     <ClInclude Include="dashboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="archive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

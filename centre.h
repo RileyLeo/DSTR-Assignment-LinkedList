@@ -28,6 +28,8 @@ public:
 // displayCentreList
 void displayCentreList()
 {
+    system("cls");
+
     // if centre list is empty
     if (centreHead == NULL)
     {
@@ -50,6 +52,8 @@ void displayCentreList()
 
 void displayCentre(Centre *centre)
 {
+    system("cls");
+
     // cout all the attributes
     std::cout << "Centre ID: " << centre->id << std::endl;
     std::cout << "Centre Name: " << centre->centreName << std::endl;

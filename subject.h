@@ -26,6 +26,8 @@ public:
 // displaySubjectList
 void displaySubjectList()
 {
+    system("cls");
+
     // if subject list is empty
     if (subjectHead == NULL)
     {
@@ -47,6 +49,8 @@ void displaySubjectList()
 
 void displaySubject(Subject *subject)
 {
+    system("cls");
+
     // cout all the attributes
     std::cout << "Subject ID: " << subject->id << std::endl;
     std::cout << "Subject Name: " << subject->subjectName << std::endl;

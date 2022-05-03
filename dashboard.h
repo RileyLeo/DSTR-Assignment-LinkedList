@@ -1,7 +1,6 @@
 #pragma once
 
 #include "functions.h"
-#include "user.h"
 
 int manageObject(int choice)
 {
@@ -355,8 +354,8 @@ void displayHrMenu()
         addRating();
         displayHrMenu();
     case 6:
-        // viewTutorArchive();
-        break;
+        displayArchiveList();
+        displayHrMenu();
     case 7:
         std::cout << "Exiting program..." << std::endl;
         exit(0);

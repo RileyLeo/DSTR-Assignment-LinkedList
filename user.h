@@ -29,6 +29,8 @@ public:
 // print user list
 void displayUserList()
 {
+    system("cls");
+
     // if user list is empty
     if (userHead == NULL)
     {
@@ -52,6 +54,8 @@ void displayUserList()
 
 void displayUser(User *user)
 {
+    system("cls");
+
     // cout all the attributes
     std::string userRole;
     if (user->userType == 0)

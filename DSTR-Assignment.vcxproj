@@ -156,6 +156,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="archive.h" />
     <ClInclude Include="centre.h" />
     <ClInclude Include="dashboard.h" />
     <ClInclude Include="functions.h" />

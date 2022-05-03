@@ -43,10 +43,13 @@ public:
 // displayTutorList
 void displayTutorList()
 {
+    system("cls");
+
     // if tutor list is empty
     if (tutorHead == NULL)
     {
-        std::cout << "Tutor list is empty" << std::endl;
+        std::cout << "Tutor list is empty" << std::endl
+                  << std::endl;
         return;
     }
 
@@ -73,6 +76,8 @@ void displayTutorList()
 
 void displayTutor(Tutor *tutor)
 {
+    system("cls");
+
     // cout all the attributes
     std::cout << "Tutor ID: " << tutor->id << std::endl;
     std::cout << "Tutor Name: " << tutor->tutorName << std::endl;
