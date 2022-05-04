@@ -115,7 +115,7 @@ Tutor *addTutor()
     std::cin >> tutorPhoneNumber;
     std::cout << "Centre ID: ";
     std::cin >> centreId;
-    while (!std::cin.good() || centreId < 0 || centreId > getListSize(centreHead))
+    while (!std::cin.good() || centreId < 0 || centreId > centreTail->id)
     {
 
         std::cin.clear();
@@ -142,7 +142,7 @@ Tutor *addTutor()
 
     std::cout << "Subject ID: ";
     std::cin >> subjectId;
-    while (!std::cin.good() || subjectId < 0 || subjectId > getListSize(subjectHead))
+    while (!std::cin.good() || subjectId < 0 || subjectId > subjectTail->id)
     {
 
         std::cin.clear();

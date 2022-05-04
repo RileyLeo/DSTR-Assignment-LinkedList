@@ -36,6 +36,24 @@ public:
         this->nextAddress = NULL;
         this->previousAddress = NULL;
     };
+
+    // constructor with typecast from tutor class
+    Archive(Tutor *tutor)
+    {
+        this->id = tutor->id;
+        this->tutorName = tutor->tutorName;
+        this->tutorAddress = tutor->tutorAddress;
+        this->tutorPhoneNumber = tutor->tutorPhoneNumber;
+        this->dateJoined = tutor->dateJoined;
+        this->dateTerminated = tutor->dateTerminated;
+        this->totalRatings = tutor->totalRatings;
+        this->ratingCount = tutor->ratingCount;
+        this->centreId = tutor->centreId;
+        this->subjectId = tutor->subjectId;
+        this->nextAddress = NULL;
+        this->previousAddress = NULL;
+    };
+
 } * archiveHead, *archiveTail;
 
 // displayTutorList

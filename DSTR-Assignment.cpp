@@ -75,6 +75,45 @@ void generateMockData()
     insertAtEnd(tutor15, tutorHead, tutorTail);
 }
 
+void archiveTerminated()
+{
+    // get the current date
+    std::string currentDate = getDateToday();
+    if (tutorHead == NULL)
+    {
+        return;
+    }
+    Tutor *tutor = tutorHead;
+    // 2nd reference to continue loop when 1st reference has been deleted
+    Tutor *next = tutor;
+    // loop through the list of tutors
+    while (next != NULL)
+    {
+        // synchronising both references
+        tutor = next;
+        if (next->dateTerminated == "")
+        {
+            next = tutor->nextAddress;
+            continue;
+        }
+        else
+        {
+            int sixMonthsAgo = getDateDifference(tutor->dateTerminated, currentDate);
+            // setup for next iteration of the loop
+            next = tutor->nextAddress;
+            if (sixMonthsAgo > 180)
+            {
+                // archive the tutor
+                std::cout << "Archiving " << tutor->tutorName << "." << std::endl;
+                Archive *archive = new Archive(tutor);
+                insertAtEnd(archive, archiveHead, archiveTail);
+                deleteNode(tutorHead, tutorTail, tutor->id);
+            }
+        }
+    }
+    std::cout << endl;
+}
+
 int main()
 {
     // set all head and tails to null
@@ -82,8 +121,9 @@ int main()
     subjectHead = subjectTail = NULL;
     centreHead = centreTail = NULL;
     tutorHead = tutorTail = NULL;
+    archiveHead = archiveTail = NULL;
     generateMockData();
-
+    archiveTerminated();
     // ------------------------------------------------------LOGIN---------------------------------------------------------------
     User *userLogin = login(userHead);
     if (userLogin->id == 0)
