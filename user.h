@@ -77,7 +77,34 @@ void displayUser(User *user)
     std::cout << std::endl;
 }
 
-User *addUser()
+void searchUser()
+{
+    std::cout << std::endl
+              << "Enter the id of the user to search: ";
+    int id;
+    std::cin >> id;
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the user to search: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    User *user = linearSearch(userHead, userTail, id);
+    if (user != NULL)
+    {
+        displayUser(user);
+    }
+    else
+    {
+        std::cout << "User not found." << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void addUser()
 {
     // prompt for input to fill in constructor
     std::string username;
@@ -103,6 +130,66 @@ User *addUser()
 
     // create new user
     User *newUser = new User((userTail != NULL) ? userTail->id + 1 : getListSize(userHead), username, password, userType);
-    std::cout << "User created successfully" << std::endl;
-    return newUser;
+    insertAtEnd(newUser, userHead, userTail);
+    std::cout << "User created successfully" << std::endl
+              << std::endl;
+}
+
+void updateUser()
+{
+    // prompt for input to fill in constructor
+    std::string username;
+    std::string password;
+
+    std::cout << "Enter id of user to update: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter id of the user to update: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    User *user = linearSearch(userHead, userTail, id);
+    if (user != NULL)
+    {
+        std::cout << "Updating user: " << user->username << std::endl;
+        std::cout << "Enter new username: ";
+        std::cin >> username;
+        std::cout << "Enter new password: ";
+        std::cin >> password;
+        user->username = username;
+        user->password = password;
+        std::cout << "User updated successfully" << std::endl
+                  << std::endl;
+    }
+    else
+    {
+        std::cout << "User not found." << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void deleteUser()
+{
+    std::cout << std::endl
+              << "Enter the id of the user to be deleted: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the user to be deleted: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    deleteNode(userHead, userTail, id);
+    std::cout << std::endl;
 }

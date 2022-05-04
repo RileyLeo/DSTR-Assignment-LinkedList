@@ -93,7 +93,34 @@ void displayTutor(Tutor *tutor)
     std::cout << std::endl;
 }
 
-Tutor *addTutor()
+void searchTutor()
+{
+    std::cout << std::endl
+              << "Enter the id of the tutor to search: ";
+    int id;
+    std::cin >> id;
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the tutor to search: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    Tutor *tutor = linearSearch(tutorHead, tutorTail, id);
+    if (tutor != NULL)
+    {
+        displayTutor(tutor);
+    }
+    else
+    {
+        std::cout << "Tutor not found." << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void addTutor()
 {
     std::string tutorName;
     std::string tutorAddress;
@@ -169,8 +196,31 @@ Tutor *addTutor()
 
     // create a new tutor
     Tutor *newTutor = new Tutor((tutorTail != NULL) ? tutorTail->id + 1 : getListSize(tutorHead), tutorName, tutorAddress, tutorPhoneNumber, dateJoined, dateTerminated, totalRatings, ratingCount, centreId, subjectId);
-    std::cout << "New tutor profile created successfully" << std::endl;
-    return newTutor;
+    insertAtEnd(newTutor, tutorHead, tutorTail);
+    std::cout << "New tutor profile created successfully" << std::endl
+              << std::endl;
+}
+
+void updateTutor() {}
+
+void deleteTutor()
+{
+    std::cout << std::endl
+              << "Enter the id of the tutor to be deleted: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the subject to be deleted: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    deleteNode(tutorHead, tutorTail, id);
+    std::cout << std::endl;
 }
 
 void addRating()

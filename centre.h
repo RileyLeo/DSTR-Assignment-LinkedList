@@ -62,7 +62,34 @@ void displayCentre(Centre *centre)
     std::cout << std::endl;
 }
 
-Centre *addCentre()
+void searchCentre()
+{
+    std::cout << std::endl
+              << "Enter the id of the centre to search: ";
+    int id;
+    std::cin >> id;
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the centre to search: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    Centre *centre = linearSearch(centreHead, centreTail, id);
+    if (centre != NULL)
+    {
+        displayCentre(centre);
+    }
+    else
+    {
+        std::cout << "Centre not found." << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void addCentre()
 {
     // prompt for input to fill in constructor
     std::string centreName;
@@ -104,6 +131,29 @@ Centre *addCentre()
 
     // create new centre
     Centre *newCentre = new Centre((centreTail != NULL) ? centreTail->id + 1 : getListSize(centreHead), centreName, centreLocation, adminId);
-    std::cout << "New Centre has been added" << std::endl;
-    return newCentre;
+    insertAtEnd(newCentre, centreHead, centreTail);
+    std::cout << "New Centre has been added" << std::endl
+              << std::endl;
+}
+
+void updateCentre() {}
+
+void deleteCentre()
+{
+    std::cout << std::endl
+              << "Enter the id of the centre to be deleted: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the centre to be deleted: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    deleteNode(centreHead, centreTail, id);
+    std::cout << std::endl;
 }

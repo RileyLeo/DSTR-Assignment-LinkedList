@@ -231,4 +231,43 @@ void deleteNode(T *&head, T *&tail, int objectID)
     std::cout << "Object with ID: " << objectID << " deleted successfully!" << std::endl;
 }
 
+template <class T>
+void updateNode(T *&head, T *&tail, T *newObject, int objectID)
+{
+    T *current = linearSearch(head, tail, objectID);
+
+    if (head == NULL || current == NULL)
+    {
+        std::cout << "No object found with ID: " << objectID << std::endl
+                  << std::endl;
+        return;
+    }
+
+    if (head == current)
+    {
+        head = newObject;
+    }
+
+    if (tail == current)
+    {
+        tail = newObject;
+    }
+
+    if (current->nextAddress != NULL)
+    {
+        current->nextAddress->previousAddress = newObject;
+    }
+
+    if (current->previousAddress != NULL)
+    {
+        current->previousAddress->nextAddress = newObject;
+    }
+
+    newObject->nextAddress = current->nextAddress;
+    newObject->previousAddress = current->previousAddress;
+
+    delete current;
+    std::cout << "Object with ID: " << objectID << " updated successfully!" << std::endl;
+}
+
 #endif // PCH_H

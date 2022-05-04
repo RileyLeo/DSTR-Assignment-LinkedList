@@ -58,7 +58,34 @@ void displaySubject(Subject *subject)
     std::cout << std::endl;
 }
 
-Subject *addSubject()
+void searchSubject()
+{
+    std::cout << std::endl
+              << "Enter the id of the subject to search: ";
+    int id;
+    std::cin >> id;
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the subject to search: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    Subject *subject = linearSearch(subjectHead, subjectTail, id);
+    if (subject != NULL)
+    {
+        displaySubject(subject);
+    }
+    else
+    {
+        std::cout << "Subject not found." << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void addSubject()
 {
     std::string subjectName;
     double hourlyPayRate;
@@ -79,6 +106,29 @@ Subject *addSubject()
 
     // create new subject
     Subject *newSubject = new Subject((subjectTail != NULL) ? subjectTail->id + 1 : getListSize(subjectHead), subjectName, hourlyPayRate);
-    std::cout << "New Subject has been added" << std::endl;
-    return newSubject;
+    insertAtEnd(newSubject, subjectHead, subjectTail);
+    std::cout << "New Subject has been added" << std::endl
+              << std::endl;
+}
+
+void updateSubject() {}
+
+void deleteSubject()
+{
+    std::cout << std::endl
+              << "Enter the id of the subject to be deleted: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the subject to be deleted: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    deleteNode(subjectHead, subjectTail, id);
+    std::cout << std::endl;
 }

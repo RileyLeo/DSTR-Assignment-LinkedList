@@ -90,54 +90,25 @@ void displayHrMenu()
         // search user
         else if (choice == 2)
         {
-            std::cout << std::endl
-                      << "Enter the id of the user to search: ";
-            int id;
-            std::cin >> id;
-            std::cout << std::endl;
-            User *user = linearSearch(userHead, userTail, id);
-            if (user != NULL)
-            {
-                displayUser(user);
-            }
-            else
-            {
-                std::cout << "User not found." << std::endl;
-            }
-            std::cout << std::endl;
+            searchUser();
             displayHrMenu();
         }
         // add user
         else if (choice == 3)
         {
-            User *newUser = addUser();
-            insertAtEnd(newUser, userHead, userTail);
-            std::cout << std::endl;
+            addUser();
             displayHrMenu();
         }
         // edit user
         else if (choice == 4)
         {
+            updateUser();
+            displayHrMenu();
         }
         // delete user
         else if (choice == 5)
         {
-            std::cout << std::endl
-                      << "Enter the id of the user to be deleted: ";
-            int id;
-            std::cin >> id;
-            // check for invalid input for id
-            while (!std::cin.good() || id < 0)
-            {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please try again." << std::endl;
-                std::cout << "Enter the id of the user to be deleted: ";
-                std::cin >> id;
-            }
-            std::cout << std::endl;
-            deleteNode(userHead, userTail, id);
-            std::cout << std::endl;
+            deleteUser();
             displayHrMenu();
         }
         else if (choice == 6)
@@ -158,54 +129,25 @@ void displayHrMenu()
         // search centre
         else if (choice == 2)
         {
-            std::cout << std::endl
-                      << "Enter the id of the centre to search: ";
-            int id;
-            std::cin >> id;
-            std::cout << std::endl;
-            Centre *centre = linearSearch(centreHead, centreTail, id);
-            if (centre != NULL)
-            {
-                displayCentre(centre);
-            }
-            else
-            {
-                std::cout << "Centre not found." << std::endl;
-            }
-            std::cout << std::endl;
+            searchCentre();
             displayHrMenu();
         }
         // add Centre
         else if (choice == 3)
         {
-            Centre *newCentre = addCentre();
-            insertAtEnd(newCentre, centreHead, centreTail);
-            std::cout << std::endl;
+            addCentre();
             displayHrMenu();
         }
         // edit centre
         else if (choice == 4)
         {
+            updateCentre();
+            displayHrMenu();
         }
         // delete centre
         else if (choice == 5)
         {
-            std::cout << std::endl
-                      << "Enter the id of the centre to be deleted: ";
-            int id;
-            std::cin >> id;
-            // check for invalid input for id
-            while (!std::cin.good() || id < 0)
-            {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please try again." << std::endl;
-                std::cout << "Enter the id of the centre to be deleted: ";
-                std::cin >> id;
-            }
-            std::cout << std::endl;
-            deleteNode(centreHead, centreTail, id);
-            std::cout << std::endl;
+            deleteCentre();
             displayHrMenu();
         }
         else if (choice == 6)
@@ -226,54 +168,25 @@ void displayHrMenu()
         // search subject
         else if (choice == 2)
         {
-            std::cout << std::endl
-                      << "Enter the id of the subject to search: ";
-            int id;
-            std::cin >> id;
-            std::cout << std::endl;
-            Subject *subject = linearSearch(subjectHead, subjectTail, id);
-            if (subject != NULL)
-            {
-                displaySubject(subject);
-            }
-            else
-            {
-                std::cout << "Subject not found." << std::endl;
-            }
-            std::cout << std::endl;
+            searchSubject();
             displayHrMenu();
         }
         // add Subject
         else if (choice == 3)
         {
-            Subject *newSubject = addSubject();
-            insertAtEnd(newSubject, subjectHead, subjectTail);
-            std::cout << std::endl;
+            addSubject();
             displayHrMenu();
         }
         // edit subject
         else if (choice == 4)
         {
+            updateSubject();
+            displayHrMenu();
         }
         // delete subject
         else if (choice == 5)
         {
-            std::cout << std::endl
-                      << "Enter the id of the subject to be deleted: ";
-            int id;
-            std::cin >> id;
-            // check for invalid input for id
-            while (!std::cin.good() || id < 0)
-            {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please try again." << std::endl;
-                std::cout << "Enter the id of the subject to be deleted: ";
-                std::cin >> id;
-            }
-            std::cout << std::endl;
-            deleteNode(subjectHead, subjectTail, id);
-            std::cout << std::endl;
+            deleteSubject();
             displayHrMenu();
         }
         else if (choice == 6)
@@ -294,54 +207,25 @@ void displayHrMenu()
         // search tutor
         else if (choice == 2)
         {
-            std::cout << std::endl
-                      << "Enter the id of the tutor to search: ";
-            int id;
-            std::cin >> id;
-            std::cout << std::endl;
-            Tutor *tutor = linearSearch(tutorHead, tutorTail, id);
-            if (tutor != NULL)
-            {
-                displayTutor(tutor);
-            }
-            else
-            {
-                std::cout << "Tutor not found." << std::endl;
-            }
-            std::cout << std::endl;
+            searchTutor();
             displayHrMenu();
         }
         // add Tutor
         else if (choice == 3)
         {
-            Tutor *newTutor = addTutor();
-            insertAtEnd(newTutor, tutorHead, tutorTail);
-            std::cout << std::endl;
+            addTutor();
             displayHrMenu();
         }
         // edit tutor
         else if (choice == 4)
         {
+            updateTutor();
+            displayHrMenu();
         }
         // delete tutor
         else if (choice == 5)
         {
-            std::cout << std::endl
-                      << "Enter the id of the tutor to be deleted: ";
-            int id;
-            std::cin >> id;
-            // check for invalid input for id
-            while (!std::cin.good() || id < 0)
-            {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Invalid input. Please try again." << std::endl;
-                std::cout << "Enter the id of the subject to be deleted: ";
-                std::cin >> id;
-            }
-            std::cout << std::endl;
-            deleteNode(tutorHead, tutorTail, id);
-            std::cout << std::endl;
+            deleteTutor();
             displayHrMenu();
         }
         else if (choice == 6)
