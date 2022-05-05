@@ -203,7 +203,109 @@ void addTutor()
               << std::endl;
 }
 
-void updateTutor() {}
+void updateTutor()
+{
+    std::string tutorName;
+    std::string tutorAddress;
+    std::string tutorPhoneNumber;
+    int centreId;
+    int subjectId;
+
+    std::cout << "Enter id of tutor to update: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter id of the tutor to update: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    Tutor *tutor = linearSearch(tutorHead, tutorTail, id);
+
+    if (tutor != NULL)
+    {
+        std::cout << "Updating subject: " << tutor->tutorName << std::endl;
+        std::cout << "New Tutor Name: ";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::getline(std::cin, tutorName);
+        std::cout << "New Tutor Address: ";
+        std::getline(std::cin, tutorAddress);
+        std::cout << "New Tutor Phone Number: ";
+        std::getline(std::cin, tutorPhoneNumber);
+        std::cout << "New Centre ID: ";
+        std::cin >> centreId;
+
+        while (!std::cin.good() || centreId < 0 || centreId > centreTail->id)
+        {
+
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "New Centre ID: ";
+            std::cin >> centreId;
+        }
+        bool centreFlag = true;
+        while (centreFlag)
+        {
+            Centre *centre = linearSearch(centreHead, centreTail, centreId);
+            if (centre == NULL)
+            {
+                std::cout << "Centre not found. Please try again." << std::endl;
+                std::cout << "New Centre ID: ";
+                std::cin >> centreId;
+            }
+            else
+            {
+                centreFlag = false;
+            }
+        }
+
+        std::cout << "New Subject ID: ";
+        std::cin >> subjectId;
+        while (!std::cin.good() || subjectId < 0 || subjectId > subjectTail->id)
+        {
+
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "New Subject ID: ";
+            std::cin >> subjectId;
+        }
+        bool subjectFlag = true;
+        while (subjectFlag)
+        {
+            Subject *subject = linearSearch(subjectHead, subjectTail, subjectId);
+            if (subject == NULL)
+            {
+                std::cout << "Subject not found. Please try again." << std::endl;
+                std::cout << "New Subject ID: ";
+                std::cin >> subjectId;
+            }
+            else
+            {
+                subjectFlag = false;
+            }
+        }
+
+        // update the tutor
+        tutor->tutorName = tutorName;
+        tutor->tutorAddress = tutorAddress;
+        tutor->tutorPhoneNumber = tutorPhoneNumber;
+        tutor->centreId = centreId;
+        tutor->subjectId = subjectId;
+        std::cout << "Tutor profile updated successfully" << std::endl
+                  << std::endl;
+        }
+    else
+    {
+        std::cout << "Tutor not found." << std::endl;
+    }
+    std::cout << std::endl;
+}
 
 void deleteTutor()
 {
