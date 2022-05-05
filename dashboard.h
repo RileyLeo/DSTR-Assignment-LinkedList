@@ -32,20 +32,44 @@ int manageObject(int choice)
     std::cout << "4 - Edit " << object << std::endl;
     // delete user
     std::cout << "5 - Delete " << object << std::endl;
-    // exit
-    std::cout << "6 - Back" << std::endl;
+    if (choice == 4)
+    {
+        // terminate tutor
+        std::cout << "6 - Terminate Tutor" << std::endl;
+        // exit
+        std::cout << "7 - Back" << std::endl;
+    }
+    else
+    {
+        // exit
+        std::cout << "6 - Back" << std::endl;
+    }
 
     int input;
     std::cout << "Enter your choice: ";
     std::cin >> input;
 
-    while (!std::cin.good() || input < 1 || input > 6)
+    if (choice == 4)
     {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Invalid input. Please try again." << std::endl;
-        std::cout << "Enter your choice: ";
-        std::cin >> input;
+        while (!std::cin.good() || input < 1 || input > 7)
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "Enter your choice: ";
+            std::cin >> input;
+        }
+    }
+    else
+    {
+        while (!std::cin.good() || input < 1 || input > 6)
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "Enter your choice: ";
+            std::cin >> input;
+        }
     }
     return input;
 }
@@ -229,6 +253,11 @@ void displayHrMenu()
             displayHrMenu();
         }
         else if (choice == 6)
+        {
+            terminateTutor();
+            displayHrMenu();
+        }
+        else if (choice == 7)
         {
             system("cls");
             displayHrMenu();

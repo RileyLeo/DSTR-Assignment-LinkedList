@@ -299,7 +299,7 @@ void updateTutor()
         tutor->subjectId = subjectId;
         std::cout << "Tutor profile updated successfully" << std::endl
                   << std::endl;
-        }
+    }
     else
     {
         std::cout << "Tutor not found." << std::endl;
@@ -366,5 +366,41 @@ void addRating()
         tutor->totalRatings += rating;
         tutor->ratingCount += 1;
         std::cout << "New rating has been added." << std::endl;
+    }
+}
+
+void terminateTutor()
+{
+    std::cout << std::endl
+              << "Enter the id of the tutor to be terminated: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter the id of the tutor to be terminated: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    Tutor *tutor = linearSearch(tutorHead, tutorTail, id);
+
+    if (tutor != NULL)
+    {
+        if (tutor->dateTerminated == "")
+        {
+            tutor->dateTerminated = getDateToday();
+            std::cout << "Tutor " << tutor->tutorName << " has been terminated on " << tutor->dateTerminated << std::endl;
+        }
+        else
+        {
+            std::cout << "Error Occured! Tutor " << tutor->tutorName << " has already been terminated on " << tutor->dateTerminated << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "Tutor not found. Please try again." << std::endl;
     }
 }
