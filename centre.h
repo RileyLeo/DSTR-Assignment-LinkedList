@@ -104,7 +104,7 @@ void addCentre()
     std::cin >> adminId;
 
     // adminId must be an existing admin
-    while (!std::cin.good() || adminId < 0 || adminId > getListSize(userHead))
+    while (!std::cin.good() || adminId < 0 || adminId > userTail->id)
     {
 
         std::cin.clear();
@@ -117,7 +117,7 @@ void addCentre()
     while (flag)
     {
         User *admin = linearSearch(userHead, userTail, adminId);
-        if (admin->userType != 1)
+        if (admin->userType != 1 || admin == NULL)
         {
             std::cout << "User is not an admin" << std::endl;
             std::cout << "Enter the admin id: ";
@@ -136,7 +136,73 @@ void addCentre()
               << std::endl;
 }
 
-void updateCentre() {}
+void updateCentre()
+{
+    std::string centreName;
+    std::string centreLocation;
+    int adminId;
+    std::cout << "Enter id of centre to update: ";
+    int id;
+    std::cin >> id;
+    // check for invalid input for id
+    while (!std::cin.good() || id < 0)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter id of the centre to update: ";
+        std::cin >> id;
+    }
+    std::cout << std::endl;
+    Centre *centre = linearSearch(centreHead, centreTail, id);
+    if (centre != NULL)
+    {
+        std::cout << "Updating Centre: " << centre->centreName << std::endl;
+        std::cout << "Enter new centre name: ";
+        std::cin >> centreName;
+        std::cout << "Enter the centre location: ";
+        std::cin >> centreLocation;
+        std::cout << "Enter new admin id: ";
+        std::cin >> adminId;
+
+        // adminId must be an existing admin
+        while (!std::cin.good() || adminId < 0 || adminId > userTail->id)
+        {
+
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "Enter new admin id: ";
+            std::cin >> adminId;
+        }
+        bool flag = true;
+        while (flag)
+        {
+            User *admin = linearSearch(userHead, userTail, adminId);
+            if (admin->userType != 1 || admin == NULL)
+            {
+                std::cout << "User is not an admin" << std::endl;
+                std::cout << "Enter the admin id: ";
+                std::cin >> adminId;
+            }
+            else
+            {
+                flag = false;
+            }
+        }
+
+        centre->centreName = centreName;
+        centre->centreLocation = centreLocation;
+        centre->adminId = adminId;
+        std::cout << "Centre updated successfully" << std::endl
+                  << std::endl;
+    }
+    else
+    {
+        std::cout << "Centre not found." << std::endl;
+    }
+    std::cout << std::endl;
+}
 
 void deleteCentre()
 {
