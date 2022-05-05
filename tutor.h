@@ -135,13 +135,15 @@ void addTutor()
     // get the input from the user
     std::cout << "Please enter the following to create a new tutor profile: " << std::endl;
     std::cout << "Tutor Name: ";
-    std::cin >> tutorName;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, tutorName);
     std::cout << "Tutor Address: ";
-    std::cin >> tutorAddress;
+    std::getline(std::cin, tutorAddress);
     std::cout << "Tutor Phone Number: ";
-    std::cin >> tutorPhoneNumber;
+    std::getline(std::cin, tutorPhoneNumber);
     std::cout << "Centre ID: ";
     std::cin >> centreId;
+
     while (!std::cin.good() || centreId < 0 || centreId > centreTail->id)
     {
 

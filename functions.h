@@ -92,6 +92,7 @@ User *login(User *head)
     User *user = loginLinearSearch(username, password, head);
     while (user == NULL)
     {
+        system("cls");
         std::cout << "Username or password is incorrect. Please try again." << std::endl;
         std::cout << "Username: ";
         std::cin >> username;

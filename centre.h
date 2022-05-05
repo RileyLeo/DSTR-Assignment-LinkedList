@@ -97,9 +97,10 @@ void addCentre()
     int adminId;
     std::cout << "Please enter the following to create a new centre:" << std::endl;
     std::cout << "Enter the centre name: ";
-    std::cin >> centreName;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, centreName);
     std::cout << "Enter the centre location: ";
-    std::cin >> centreLocation;
+    std::getline(std::cin, centreLocation);
     std::cout << "Enter the admin id: ";
     std::cin >> adminId;
 
@@ -159,9 +160,10 @@ void updateCentre()
     {
         std::cout << "Updating Centre: " << centre->centreName << std::endl;
         std::cout << "Enter new centre name: ";
-        std::cin >> centreName;
-        std::cout << "Enter the centre location: ";
-        std::cin >> centreLocation;
+        std::cin.ignore();
+        std::getline(std::cin, centreName);
+        std::cout << "Enter new centre location: ";
+        std::getline(std::cin, centreLocation);
         std::cout << "Enter new admin id: ";
         std::cin >> adminId;
 

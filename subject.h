@@ -92,7 +92,8 @@ void addSubject()
 
     std::cout << "Please enter the following to add a subject: " << std::endl;
     std::cout << "Subject Name: ";
-    std::cin >> subjectName;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, subjectName);
     std::cout << "Hourly Pay Rate: ";
     std::cin >> hourlyPayRate;
     while (!std::cin.good() || hourlyPayRate < 0)
