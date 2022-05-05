@@ -314,8 +314,9 @@ void displayAdminMenu()
         break;
     case 5:
         std::cout << "Exiting program..." << std::endl;
-        return;
+        exit(0);
         break;
+        return;
     }
 }
 
@@ -352,7 +353,8 @@ void displayTutorMenu()
         break;
     case 4:
         std::cout << "Exiting program..." << std::endl;
-        return;
+        exit(0);
         break;
+        return;
     }
 }
