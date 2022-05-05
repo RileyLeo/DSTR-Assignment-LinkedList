@@ -74,6 +74,29 @@ int manageObject(int choice)
     return input;
 }
 
+int manageViews()
+{
+    system("cls");
+    std::cout << "1 - No Sorting" << std::endl;
+    std::cout << "2 - Sorting 1" << std::endl;
+    std::cout << "3 - Sorting 2" << std::endl;
+    std::cout << "4 - Sorting 3" << std::endl;
+
+    int input;
+    std::cout << "Enter your choice: ";
+    std::cin >> input;
+
+    while (!std::cin.good() || input < 1 || input > 7)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter your choice: ";
+        std::cin >> input;
+    }
+    return input;
+}
+
 // ---------------------------------------------- Dashboards ----------------------------------------------
 void displayHrMenu()
 {
