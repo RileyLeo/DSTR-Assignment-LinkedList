@@ -26,28 +26,110 @@ public:
 } * centreHead, *centreTail;
 
 // displayCentreList
+// void displayCentreList()
+// {
+//     system("cls");
+
+//     // if centre list is empty
+//     if (centreHead == NULL)
+//     {
+//         std::cout << "Centre list is empty" << std::endl;
+//         return;
+//     }
+
+//     Centre *current = centreHead;
+//     while (current != NULL)
+//     {
+//         std::cout << "Centre ID: " << current->id << std::endl;
+//         std::cout << "Centre Name: " << current->centreName << std::endl;
+//         std::cout << "Centre Location: " << current->centreLocation << std::endl;
+//         std::cout << "Admin ID: " << current->adminId << std::endl
+//                   << std::endl;
+//         current = current->nextAddress;
+//     }
+//     delete current;
+// }
 void displayCentreList()
 {
     system("cls");
-
-    // if centre list is empty
-    if (centreHead == NULL)
-    {
-        std::cout << "Centre list is empty" << std::endl;
-        return;
-    }
-
     Centre *current = centreHead;
-    while (current != NULL)
+    Centre *oneBeforeCurrent = NULL;
+    int count = 0;
+    int index;
+    int page = 1;
+    while (true)
     {
-        std::cout << "Centre ID: " << current->id << std::endl;
-        std::cout << "Centre Name: " << current->centreName << std::endl;
-        std::cout << "Centre Location: " << current->centreLocation << std::endl;
-        std::cout << "Admin ID: " << current->adminId << std::endl
-                  << std::endl;
-        current = current->nextAddress;
+        while (current != NULL)
+        {
+            if (count == 0)
+            {
+                std::cout << "Centre list - Page " << page << std::endl;
+                std::cout << std::setw(90) << std::setfill('=') << "" << std::endl;
+                std::cout << std::setw(6) << std::setfill(' ') << "No.";
+                std::cout << std::setw(11) << std::setfill(' ') << "Centre ID";
+                std::cout << std::setw(31) << std::setfill(' ') << "Centre Name";
+                std::cout << std::setw(21) << std::setfill(' ') << "Centre Location";
+                std::cout << std::setw(11) << std::setfill(' ') << "Admin ID" << std::endl;
+                std::cout << std::setw(90) << std::setfill('=') << "" << std::endl;
+            }
+            count++;
+            index = ((page * 10) - 10 + count);
+            std::cout << std::setw(5) << std::setfill(' ') << index << " ";
+            std::cout << std::setw(10) << std::setfill(' ') << current->id << " ";
+            std::cout << std::setw(30) << std::setfill(' ') << current->centreName << " ";
+            std::cout << std::setw(20) << std::setfill(' ') << current->centreLocation << " ";
+            std::cout << std::setw(10) << std::setfill(' ') << current->adminId << " " << std::endl;
+
+            oneBeforeCurrent = current;
+            current = current->nextAddress;
+            while (count == 10 || current == NULL)
+            {
+                std::cout << "Press 1 to continue or press 0 to exit or 2 to the previous page" << std::endl;
+                int choice;
+                std::cin >> choice;
+                if (choice == 0)
+                {
+                    system("cls");
+                    return;
+                }
+                else if (choice == 2)
+                {
+                    if (page == 1)
+                    {
+                        std::cout << "You are on the first page" << std::endl;
+                    }
+                    else
+                    {
+                        current = oneBeforeCurrent;
+                        for (int i = 0; i < count + 9; i++)
+                        {
+                            current = current->previousAddress;
+                        }
+                        system("cls");
+                        count = 0;
+                        page--;
+                    }
+                }
+                else if (choice == 1)
+                {
+                    if (current == NULL)
+                    {
+                        std::cout << "You are on the Last page" << std::endl;
+                    }
+                    else
+                    {
+                        system("cls");
+                        count = 0;
+                        page++;
+                    }
+                }
+                else
+                {
+                    std::cout << "Invalid input" << std::endl;
+                }
+            }
+        }
     }
-    delete current;
 }
 
 void displayCentre(Centre *centre)
