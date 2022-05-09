@@ -67,16 +67,18 @@ void displayUserList()
             if (count == 0)
             {
                 std::cout << "User list - Page " << page << std::endl;
-                std::cout << std::setw(50) << std::setfill('=') << "" << std::endl;
+                std::cout << std::setw(55) << std::setfill('=') << "" << std::endl;
                 std::cout << std::setw(6) << std::setfill(' ') << "No.";
+                std::cout << std::setw(11) << std::setfill(' ') << "User ID";
                 std::cout << std::setw(11) << std::setfill(' ') << "Username";
                 std::cout << std::setw(11) << std::setfill(' ') << "Password";
                 std::cout << std::setw(14) << std::setfill(' ') << "User Type " << std::endl;
-                std::cout << std::setw(50) << std::setfill('=') << "" << std::endl;
+                std::cout << std::setw(55) << std::setfill('=') << "" << std::endl;
             }
             count++;
             index = ((page * 10) - 10 + count);
             std::cout << std::setw(5) << std::setfill(' ') << index << " ";
+             std::cout << std::setw(10) << std::setfill(' ') << current->id << " ";
             std::cout << std::setw(10) << std::setfill(' ') << current->username << " ";
             std::cout << std::setw(10) << std::setfill(' ') << current->password << " ";
             if (current->userType == 0)
