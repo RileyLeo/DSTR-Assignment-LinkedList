@@ -24,27 +24,108 @@ public:
 } * subjectHead, *subjectTail;
 
 // displaySubjectList
+// void displaySubjectList()
+// {
+//     system("cls");
+
+//     // if subject list is empty
+//     if (subjectHead == NULL)
+//     {
+//         std::cout << "Subject list is empty" << std::endl;
+//         return;
+//     }
+
+//     Subject *current = subjectHead;
+//     while (current != NULL)
+//     {
+//         std::cout << "Subject ID: " << current->id << std::endl;
+//         std::cout << "Subject Name: " << current->subjectName << std::endl;
+//         std::cout << "Hourly Pay Rate: " << current->hourlyPayRate << std::endl
+//                   << std::endl;
+//         current = current->nextAddress;
+//     }
+//     delete current;
+// }
+
 void displaySubjectList()
 {
     system("cls");
-
-    // if subject list is empty
-    if (subjectHead == NULL)
-    {
-        std::cout << "Subject list is empty" << std::endl;
-        return;
-    }
-
     Subject *current = subjectHead;
-    while (current != NULL)
+    Subject *oneBeforeCurrent = NULL;
+    int count = 0;
+    int index;
+    int page = 1;
+    while (true)
     {
-        std::cout << "Subject ID: " << current->id << std::endl;
-        std::cout << "Subject Name: " << current->subjectName << std::endl;
-        std::cout << "Hourly Pay Rate: " << current->hourlyPayRate << std::endl
-                  << std::endl;
-        current = current->nextAddress;
+        while (current != NULL)
+        {
+            if (count == 0)
+            {
+                std::cout << "User list - Page " << page << std::endl;
+                std::cout << std::setw(75) << std::setfill('=') << "" << std::endl;
+                std::cout << std::setw(6) << std::setfill(' ') << "No.";
+                std::cout << std::setw(16) << std::setfill(' ') << "Subject ID";
+                std::cout << std::setw(16) << std::setfill(' ') << "Subject Name";
+                std::cout << std::setw(21) << std::setfill(' ') << "Hourly Pay Rate" << std::endl;
+                std::cout << std::setw(75) << std::setfill('=') << "" << std::endl;
+            }
+            count++;
+            index = ((page * 10) - 10 + count);
+            std::cout << std::setw(5) << std::setfill(' ') << index << " ";
+            std::cout << std::setw(15) << std::setfill(' ') << current->id << " ";
+            std::cout << std::setw(15) << std::setfill(' ') << current->subjectName << " ";
+            std::cout << std::setw(20) << std::setfill(' ') << current->hourlyPayRate << std::endl;
+
+            oneBeforeCurrent = current;
+            current = current->nextAddress;
+            while (count == 10 || current == NULL)
+            {
+                std::cout << "Press 1 to continue or press 0 to exit or 2 to the previous page" << std::endl;
+                int choice;
+                std::cin >> choice;
+                if (choice == 0)
+                {
+                    system("cls");
+                    return;
+                }
+                else if (choice == 2)
+                {
+                    if (page == 1)
+                    {
+                        std::cout << "You are on the first page" << std::endl;
+                    }
+                    else
+                    {
+                        current = oneBeforeCurrent;
+                        for (int i = 0; i < count + 9; i++)
+                        {
+                            current = current->previousAddress;
+                        }
+                        system("cls");
+                        count = 0;
+                        page--;
+                    }
+                }
+                else if (choice == 1)
+                {
+                    if (current == NULL)
+                    {
+                        std::cout << "You are on the Last page" << std::endl;
+                    }
+                    else
+                    {
+                        system("cls");
+                        count = 0;
+                        page++;
+                    }
+                }
+                else
+                {
+                    std::cout << "Invalid input" << std::endl;
+                }
+            }
+        }
     }
-    delete current;
 }
 
 void displaySubject(Subject *subject)
@@ -152,7 +233,7 @@ void updateSubject()
         subject->hourlyPayRate = hourlyPayRate;
         std::cout << "Subject has been updated" << std::endl
                   << std::endl;
-        }
+    }
     else
     {
         std::cout << "Subject not found." << std::endl;
