@@ -291,7 +291,7 @@ void displayHrMenu()
             // view tutors sorted by ID
             if (tutorViewChoice == 1)
             {
-                // sortTutorById(-1);
+                sortTutorById(-1);
                 displayHrMenu();
             }
             // view tutors sorted by hourly pay rate
