@@ -93,7 +93,7 @@ void displayTutor(Tutor *tutor)
     std::cout << std::endl;
 }
 
-void searchTutor()
+void searchTutorById()
 {
     std::cout << std::endl
               << "Enter the id of the tutor to search: ";

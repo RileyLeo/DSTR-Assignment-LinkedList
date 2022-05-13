@@ -73,9 +73,9 @@ void generateMockData()
     insertAtEnd(tutor12, tutorHead, tutorTail);
     Tutor *tutor13 = new Tutor(getListSize(tutorHead), "Christina Tan", "Old Klang Road, Kuchai Lama", "+60123456717", "15/03/2020", "", 95, 20, 2, 2);
     insertAtEnd(tutor13, tutorHead, tutorTail);
-    Tutor *tutor14 = new Tutor(getListSize(tutorHead), "Brendan Kok", "SS15, Subang Jaya", "+60123456716", "15/03/2020", "15/03/2021", 75, 20, 2, 3);
+    Tutor *tutor14 = new Tutor(getListSize(tutorHead), "Chrysan Kok", "SS15, Subang Jaya", "+60123456716", "15/03/2020", "15/03/2021", 75, 20, 2, 3);
     insertAtEnd(tutor14, tutorHead, tutorTail);
-    Tutor *tutor15 = new Tutor(getListSize(tutorHead), "Bennette Tan", "Taman OUG, Kuala Lumpur", "+60123456715", "03/08/2021", "", 82, 20, 2, 4);
+    Tutor *tutor15 = new Tutor(getListSize(tutorHead), "Coconut Tree", "Taman OUG, Kuala Lumpur", "+60123456715", "03/08/2021", "", 82, 20, 2, 4);
     insertAtEnd(tutor15, tutorHead, tutorTail);
 }
 

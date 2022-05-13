@@ -74,19 +74,18 @@ int manageObject(int choice)
     return input;
 }
 
-int manageViews()
+int viewTutorSorted()
 {
     system("cls");
-    std::cout << "1 - No Sorting" << std::endl;
-    std::cout << "2 - Sorting 1" << std::endl;
-    std::cout << "3 - Sorting 2" << std::endl;
-    std::cout << "4 - Sorting 3" << std::endl;
+    std::cout << "1 - View Tutors sorted by ID" << std::endl;
+    std::cout << "2 - View Tutors sorted by Hourly Pay Rate" << std::endl;
+    std::cout << "3 - View Tutors sorted by Rating" << std::endl;
 
     int input;
     std::cout << "Enter your choice: ";
     std::cin >> input;
 
-    while (!std::cin.good() || input < 1 || input > 7)
+    while (!std::cin.good() || input < 1 || input > 3)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -97,10 +96,50 @@ int manageViews()
     return input;
 }
 
+int searchTutorDashboard(int userType)
+{
+    system("cls");
+    std::cout << "1 - Search Tutor by ID" << std::endl;
+    std::cout << "2 - Filter Tutors by Rating" << std::endl;
+    std::cout << "3 - Filter Tutors by Subject ID" << std::endl;
+    if (userType == 0)
+    {
+        std::cout << "4 - Filter Tutors by Centre ID" << std::endl;
+    }
+
+    int input;
+    std::cout << "Enter your choice: ";
+    std::cin >> input;
+
+    if (userType == 0)
+    {
+        while (!std::cin.good() || input < 1 || input > 4)
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "Enter your choice: ";
+            std::cin >> input;
+        }
+    }
+    else
+    {
+        while (!std::cin.good() || input < 1 || input > 3)
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "Enter your choice: ";
+            std::cin >> input;
+        }
+    }
+    return input;
+}
+
 // ---------------------------------------------- Dashboards ----------------------------------------------
 void displayHrMenu()
 {
-    int choice;
+    int choice, tutorViewChoice, searchTutorChoice;
     std::cout << "1 - Manage Users" << std::endl;
     std::cout << "2 - Manage Centres" << std::endl;
     std::cout << "3 - Manage Subjects" << std::endl;
@@ -247,15 +286,56 @@ void displayHrMenu()
         // view all tutors
         if (choice == 1)
         {
-            std::cout << std::endl;
-            displayTutorList();
-            displayHrMenu();
+            tutorViewChoice = viewTutorSorted();
+            system("cls");
+            // view tutors sorted by ID
+            if (tutorViewChoice == 1)
+            {
+                // sortTutorById(-1);
+                displayHrMenu();
+            }
+            // view tutors sorted by hourly pay rate
+            else if (tutorViewChoice == 2)
+            {
+                // sortTutorByHourlyPayRate(-1);
+                displayHrMenu();
+            }
+            // view tutors sorted by rating
+            else if (tutorViewChoice == 3)
+            {
+                // sortTutorByRating(-1);
+                displayHrMenu();
+            }
         }
         // search tutor
         else if (choice == 2)
         {
-            searchTutor();
-            displayHrMenu();
+            searchTutorChoice = searchTutorDashboard(0);
+            system("cls");
+            // search tutor by ID
+            if (searchTutorChoice == 1)
+            {
+                searchTutorById();
+                displayHrMenu();
+            }
+            // filter by Rating
+            else if (searchTutorChoice == 2)
+            {
+                // filterTutorByRating(-1);
+                displayHrMenu();
+            }
+            // filter by Subject ID
+            else if (searchTutorChoice == 3)
+            {
+                // filterTutorBySubjectId(-1);
+                displayHrMenu();
+            }
+            // filter by Centre ID
+            else if (searchTutorChoice == 4)
+            {
+                // filterTutorByCentreId(-1);
+                displayHrMenu();
+            }
         }
         // add Tutor
         else if (choice == 3)
