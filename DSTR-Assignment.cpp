@@ -19,7 +19,7 @@ void generateMockData()
     insertAtEnd(user, userHead, userTail);
     User *user1 = new User(getListSize(userHead), "admin1", "123", 1);
     insertAtEnd(user1, userHead, userTail);
-    User *user2 = new User(getListSize(userHead), "tutor", "123", 2);
+    User *user2 = new User(getListSize(userHead), "1", "123", 2);
     insertAtEnd(user2, userHead, userTail);
     User *user3 = new User(getListSize(userHead), "admin2", "123", 1);
     insertAtEnd(user3, userHead, userTail);
@@ -140,7 +140,7 @@ int main()
     }
     else
     {
-        displayTutorMenu();
+        displayTutorMenu(userLogin);
     }
 
     return 0;

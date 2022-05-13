@@ -423,8 +423,13 @@ void displayAdminMenu()
     }
 }
 
-void displayTutorMenu()
+void displayTutorMenu(User *login)
 {
+    int tutorId = std::stoi(login->username);
+    Tutor *tutor = linearSearch(tutorHead, tutorTail, tutorId);
+    Centre *centre = linearSearch(centreHead, centreTail, tutor->centreId);
+    Subject *subject = linearSearch(subjectHead, subjectTail, tutor->subjectId);
+
     std::cout << "1 - View Centre Details" << std::endl;
     std::cout << "2 - View Subject Details" << std::endl;
     std::cout << "3 - View Tutor Details" << std::endl;
@@ -446,14 +451,14 @@ void displayTutorMenu()
     switch (input)
     {
     case 1:
-        // viewCentreDetails();
-        break;
+        displayCentre(centre);
+        displayTutorMenu(login);
     case 2:
-        // viewSubjectDetails();
-        break;
+        displaySubject(subject);
+        displayTutorMenu(login);
     case 3:
-        // viewTutorDetails();
-        break;
+        displayTutor(tutor);
+        displayTutorMenu(login);
     case 4:
         std::cout << "Exiting program..." << std::endl;
         exit(0);
