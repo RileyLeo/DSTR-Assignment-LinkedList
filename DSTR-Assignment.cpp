@@ -130,11 +130,11 @@ int main()
     archiveTerminated();
     // ------------------------------------------------------LOGIN---------------------------------------------------------------
     User *userLogin = login(userHead);
-    if (userLogin->id == 0)
+    if (userLogin->userType == 0)
     {
         displayHrMenu();
     }
-    else if (userLogin->id == 1)
+    else if (userLogin->userType == 1)
     {
         displayAdminMenu();
     }
