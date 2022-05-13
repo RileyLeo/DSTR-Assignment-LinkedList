@@ -26,29 +26,6 @@ public:
 } * centreHead, *centreTail;
 
 // displayCentreList
-// void displayCentreList()
-// {
-//     system("cls");
-
-//     // if centre list is empty
-//     if (centreHead == NULL)
-//     {
-//         std::cout << "Centre list is empty" << std::endl;
-//         return;
-//     }
-
-//     Centre *current = centreHead;
-//     while (current != NULL)
-//     {
-//         std::cout << "Centre ID: " << current->id << std::endl;
-//         std::cout << "Centre Name: " << current->centreName << std::endl;
-//         std::cout << "Centre Location: " << current->centreLocation << std::endl;
-//         std::cout << "Admin ID: " << current->adminId << std::endl
-//                   << std::endl;
-//         current = current->nextAddress;
-//     }
-//     delete current;
-// }
 void displayCentreList()
 {
     system("cls");

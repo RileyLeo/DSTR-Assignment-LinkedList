@@ -24,29 +24,6 @@ public:
 } * subjectHead, *subjectTail;
 
 // displaySubjectList
-// void displaySubjectList()
-// {
-//     system("cls");
-
-//     // if subject list is empty
-//     if (subjectHead == NULL)
-//     {
-//         std::cout << "Subject list is empty" << std::endl;
-//         return;
-//     }
-
-//     Subject *current = subjectHead;
-//     while (current != NULL)
-//     {
-//         std::cout << "Subject ID: " << current->id << std::endl;
-//         std::cout << "Subject Name: " << current->subjectName << std::endl;
-//         std::cout << "Hourly Pay Rate: " << current->hourlyPayRate << std::endl
-//                   << std::endl;
-//         current = current->nextAddress;
-//     }
-//     delete current;
-// }
-
 void displaySubjectList()
 {
     system("cls");

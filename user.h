@@ -26,32 +26,7 @@ public:
 
 } * userHead, *userTail;
 
-// print user list
-// void displayUserList()
-// {
-//     system("cls");
-
-//     // if user list is empty
-//     if (userHead == NULL)
-//     {
-//         std::cout << "User list is empty" << std::endl;
-//         return;
-//     }
-
-//     User *current = userHead;
-
-//     while (current != NULL)
-//     {
-//         std::cout << "User ID: " << current->id << std::endl;
-//         std::cout << "Username: " << current->username << std::endl;
-//         std::cout << "Password: " << current->password << std::endl;
-//         std::cout << "User Type: " << current->userType << std::endl
-//                   << std::endl;
-//         current = current->nextAddress;
-//     }
-//     delete current;
-// }
-
+// display user list
 void displayUserList()
 {
     system("cls");
@@ -78,7 +53,7 @@ void displayUserList()
             count++;
             index = ((page * 10) - 10 + count);
             std::cout << std::setw(5) << std::setfill(' ') << index << " ";
-             std::cout << std::setw(10) << std::setfill(' ') << current->id << " ";
+            std::cout << std::setw(10) << std::setfill(' ') << current->id << " ";
             std::cout << std::setw(10) << std::setfill(' ') << current->username << " ";
             std::cout << std::setw(10) << std::setfill(' ') << current->password << " ";
             if (current->userType == 0)
