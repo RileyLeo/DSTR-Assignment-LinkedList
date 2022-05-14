@@ -136,7 +136,7 @@ int main()
     }
     else if (userLogin->userType == 1)
     {
-        displayAdminMenu();
+        displayAdminMenu(userLogin);
     }
     else
     {

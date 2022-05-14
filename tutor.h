@@ -82,29 +82,30 @@ void sortTutorById(int centreID)
     Tutor *oneBeforeCurrent = NULL;
     int count = 0;
     int index;
+    int skips = 0;
     int page = 1;
     while (true)
     {
         while (current != NULL)
         {
-            if (count == 0)
-            {
-                std::cout << "Tutor list - Page " << page << std::endl;
-                std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
-                std::cout << std::setw(6) << std::setfill(' ') << "No.";
-                std::cout << std::setw(11) << std::setfill(' ') << "Tutor ID";
-                std::cout << std::setw(21) << std::setfill(' ') << "Tutor Name";
-                std::cout << std::setw(31) << std::setfill(' ') << "Tutor Address";
-                std::cout << std::setw(16) << std::setfill(' ') << "Phone Number";
-                std::cout << std::setw(21) << std::setfill(' ') << "Dated Joined";
-                std::cout << std::setw(21) << std::setfill(' ') << "Dated Terminated";
-                std::cout << std::setw(11) << std::setfill(' ') << "Ratings";
-                std::cout << std::setw(11) << std::setfill(' ') << "Centre ID";
-                std::cout << std::setw(11) << std::setfill(' ') << "Subject ID" << std::endl;
-                std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
-            }
             if (current->centreId == centreID || centreID == -1)
             {
+                if (count == 0)
+                {
+                    std::cout << "Tutor list - Page " << page << std::endl;
+                    std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                    std::cout << std::setw(6) << std::setfill(' ') << "No.";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Tutor ID";
+                    std::cout << std::setw(21) << std::setfill(' ') << "Tutor Name";
+                    std::cout << std::setw(31) << std::setfill(' ') << "Tutor Address";
+                    std::cout << std::setw(16) << std::setfill(' ') << "Phone Number";
+                    std::cout << std::setw(21) << std::setfill(' ') << "Dated Joined";
+                    std::cout << std::setw(21) << std::setfill(' ') << "Dated Terminated";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Ratings";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Centre ID";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Subject ID" << std::endl;
+                    std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                }
                 count++;
                 index = ((page * 10) - 10 + count);
                 float ratings = (current->totalRatings / current->ratingCount);
@@ -118,6 +119,9 @@ void sortTutorById(int centreID)
                 std::cout << std::setw(10) << std::setfill(' ') << ratings << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->centreId << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " " << std::endl;
+            } else
+            {
+                skips++;
             }
 
             oneBeforeCurrent = current;
@@ -141,12 +145,13 @@ void sortTutorById(int centreID)
                     else
                     {
                         current = oneBeforeCurrent;
-                        for (int i = 0; i < count + 9; i++)
+                        for (int i = 0; i < count + 9 + skips; i++)
                         {
                             current = current->previousAddress;
                         }
                         system("cls");
                         count = 0;
+                        skips = 0;
                         page--;
                     }
                 }

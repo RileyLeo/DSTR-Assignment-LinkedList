@@ -178,6 +178,22 @@ User *loginLinearSearch(std::string username, std::string password, User *head)
     return NULL;
 }
 
+// linear search to search for centres based on admin's user id
+template <class Centre>
+Centre *centreLinearSearch(int adminId, Centre *head)
+{
+    Centre *current = head;
+    while (current != NULL)
+    {
+        if (current->adminId == adminId)
+        {
+            return current;
+        }
+        current = current->nextAddress;
+    }
+    return NULL;
+}
+
 // ---------------------------------------------- CRUD Functions ----------------------------------------------
 // insert object at end of different types of doubly linked lists
 template <class T>

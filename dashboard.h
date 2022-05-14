@@ -380,13 +380,16 @@ void displayHrMenu()
     }
 }
 
-void displayAdminMenu()
+void displayAdminMenu(User * login)
 {
-    std::cout << "1 - View Centre Details" << std::endl;
-    std::cout << "2 - View All Subjects" << std::endl;
-    std::cout << "3 - Add Ratings" << std::endl;
-    std::cout << "4 - View Tutor Archive" << std::endl;
-    std::cout << "5 - Exit Program" << std::endl;
+    int choice, tutorViewChoice, searchTutorChoice;
+    Centre * centre = centreLinearSearch(login->id, centreHead);
+    std::cout << "1 - Manage Tutors" << std::endl;
+    std::cout << "2 - View Centre Details" << std::endl;
+    std::cout << "3 - View All Subjects" << std::endl;
+    std::cout << "4 - Add Ratings" << std::endl;
+    std::cout << "5 - View Tutor Archive" << std::endl;
+    std::cout << "6 - Exit Program" << std::endl;
 
     int input;
     std::cout << "Enter your choice: ";
@@ -404,18 +407,102 @@ void displayAdminMenu()
     switch (input)
     {
     case 1:
+         choice = manageObject(4);
+        // view all tutors
+        if (choice == 1)
+        {
+            tutorViewChoice = viewTutorSorted();
+            system("cls");
+            // view tutors sorted by ID
+            if (tutorViewChoice == 1)
+            {
+                sortTutorById(centre->id);
+                displayAdminMenu(login);
+            }
+            // view tutors sorted by hourly pay rate
+            else if (tutorViewChoice == 2)
+            {
+                // sortTutorByHourlyPayRate(-1);
+                displayAdminMenu(login);
+            }
+            // view tutors sorted by rating
+            else if (tutorViewChoice == 3)
+            {
+                // sortTutorByRating(-1);
+                displayAdminMenu(login);
+            }
+        }
+        // // search tutor
+        // else if (choice == 2)
+        // {
+        //     searchTutorChoice = searchTutorDashboard(0);
+        //     system("cls");
+        //     // search tutor by ID
+        //     if (searchTutorChoice == 1)
+        //     {
+        //         searchTutorById();
+        //         displayHrMenu();
+        //     }
+        //     // filter by Rating
+        //     else if (searchTutorChoice == 2)
+        //     {
+        //         // filterTutorByRating(-1);
+        //         displayHrMenu();
+        //     }
+        //     // filter by Subject ID
+        //     else if (searchTutorChoice == 3)
+        //     {
+        //         // filterTutorBySubjectId(-1);
+        //         displayHrMenu();
+        //     }
+        //     // filter by Centre ID
+        //     else if (searchTutorChoice == 4)
+        //     {
+        //         // filterTutorByCentreId(-1);
+        //         displayHrMenu();
+        //     }
+        // }
+        // // add Tutor
+        // else if (choice == 3)
+        // {
+        //     addTutor();
+        //     displayHrMenu();
+        // }
+        // // edit tutor
+        // else if (choice == 4)
+        // {
+        //     updateTutor();
+        //     displayHrMenu();
+        // }
+        // // delete tutor
+        // else if (choice == 5)
+        // {
+        //     deleteTutor();
+        //     displayHrMenu();
+        // }
+        // else if (choice == 6)
+        // {
+        //     terminateTutor();
+        //     displayHrMenu();
+        // }
+        // else if (choice == 7)
+        // {
+        //     system("cls");
+        //     displayHrMenu();
+        // }
+    case 2:
         // viewCentreDetails();
         break;
-    case 2:
+    case 3:
         // viewAllSubjects();
         break;
-    case 3:
+    case 4:
         // addRatings();
         break;
-    case 4:
+    case 5:
         // viewTutorArchive();
         break;
-    case 5:
+    case 6:
         std::cout << "Exiting program..." << std::endl;
         exit(0);
         break;
