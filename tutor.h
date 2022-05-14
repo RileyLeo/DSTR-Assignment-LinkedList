@@ -41,41 +41,7 @@ public:
 } * tutorHead, *tutorTail;
 
 // displayTutorList
-// void displayTutorList()
-// {
-//     system("cls");
-
-//     // if tutor list is empty
-//     if (tutorHead == NULL)
-//     {
-//         std::cout << "Tutor list is empty" << std::endl
-//                   << std::endl;
-//         return;
-//     }
-
-//     Tutor *current = tutorHead;
-//     while (current != NULL)
-//     {
-//         std::cout << "Tutor ID: " << current->id << std::endl;
-//         std::cout << "Tutor Name: " << current->tutorName << std::endl;
-//         std::cout << "Tutor Address: " << current->tutorAddress << std::endl;
-//         std::cout << "Tutor Phone Number: " << current->tutorPhoneNumber << std::endl;
-//         std::cout << "Date Joined: " << current->dateJoined << std::endl;
-//         std::cout << "Date Terminated: " << current->dateTerminated << std::endl;
-//         std::cout << "Total Ratings: " << current->totalRatings << std::endl;
-//         std::cout << "Rating Count: " << current->ratingCount << std::endl;
-//         std::string centreName = linearSearch(centreHead, centreTail, current->centreId)->centreName;
-//         std::cout << "Centre ID: " << current->centreId << " - " << centreName << std::endl;
-//         std::string subjectName = linearSearch(subjectHead, subjectTail, current->subjectId)->subjectName;
-//         std::cout << "Subject ID: " << current->subjectId << " - " << subjectName << std::endl;
-//         std::cout << std::endl;
-//         current = current->nextAddress;
-//     }
-//     delete current;
-// }
-
-// displayCentreList
-void sortTutorById(int centreID)
+void filterTutors(int centreID, int subjectID, int tutorRatings)
 {
     system("cls");
     Tutor *current = tutorHead;
@@ -84,11 +50,24 @@ void sortTutorById(int centreID)
     int index;
     int skips = 0;
     int page = 1;
+    float ratings;
     while (true)
     {
         while (current != NULL)
         {
-            if (current->centreId == centreID || centreID == -1)
+            ratings = float(current->totalRatings) / float(current->ratingCount);
+            if ( // View tutors belonging to all Centers
+                (centreID == -1 && subjectID == -2 && tutorRatings == -2)
+                // View tutors belonging to Specific Center
+                || (current->centreId == centreID && subjectID == -2 && tutorRatings == -2)
+                // View tutors belonging to Specific Subject in all centres
+                || (centreID == -2 && current->subjectId == subjectID && tutorRatings == -2)
+                // View tutors belonging to Specific Subject and Specific Center
+                || (current->centreId == centreID && current->subjectId == subjectID && tutorRatings == -2)
+                // View tutors belonging to Specific Ratings in all centres
+                || (centreID == -2 && subjectID == -2 && std::round(ratings) == tutorRatings)
+                // View tutors belonging to Specific Ratings and Specific Centre
+                || (current->centreId == centreID && subjectID == -2 && std::round(ratings) == tutorRatings))
             {
                 if (count == 0)
                 {
@@ -108,7 +87,6 @@ void sortTutorById(int centreID)
                 }
                 count++;
                 index = ((page * 10) - 10 + count);
-                float ratings = (current->totalRatings / current->ratingCount);
                 std::cout << std::setw(5) << std::setfill(' ') << index << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->id << " ";
                 std::cout << std::setw(20) << std::setfill(' ') << current->tutorName << " ";
@@ -119,7 +97,8 @@ void sortTutorById(int centreID)
                 std::cout << std::setw(10) << std::setfill(' ') << ratings << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->centreId << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " " << std::endl;
-            } else
+            }
+            else
             {
                 skips++;
             }
@@ -128,6 +107,12 @@ void sortTutorById(int centreID)
             current = current->nextAddress;
             while (count == 10 || current == NULL)
             {
+                if (count == 0)
+                {
+                    std::cout << "No records found!" << std::endl
+                              << std::endl;
+                    return;
+                }
                 std::cout << "Press 1 to continue or press 0 to exit or 2 to the previous page" << std::endl;
                 int choice;
                 std::cin >> choice;

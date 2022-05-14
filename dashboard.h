@@ -136,6 +136,47 @@ int searchTutorDashboard(int userType)
     return input;
 }
 
+int ratingValidation()
+{
+    int rating;
+    std::cout << "Enter your rating: ";
+    std::cin >> rating;
+    while (!std::cin.good() || rating < 1 || rating > 5)
+    {
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter your rating: ";
+        std::cin >> rating;
+    }
+    return rating;
+}
+
+int subjectValidation()
+{
+    int subjectId;
+    std::cout << "Enter your subject ID: ";
+    std::cin >> subjectId;
+    while (!std::cin.good() || linearSearch(subjectHead, subjectTail, subjectId) == NULL)
+    {
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter your subject ID: ";
+        std::cin >> subjectId;
+    }
+    return subjectId;
+}
+
+int centreValidation()
+{
+    int centreId;
+    std::cout << "Enter your centre ID: ";
+    std::cin >> centreId;
+    while (!std::cin.good() || linearSearch(centreHead, centreTail, centreId) == NULL)
+    {
+        std::cout << "Invalid input. Please try again." << std::endl;
+        std::cout << "Enter your centre ID: ";
+        std::cin >> centreId;
+    }
+    return centreId;
+}
 // ---------------------------------------------- Dashboards ----------------------------------------------
 void displayHrMenu()
 {
@@ -291,7 +332,7 @@ void displayHrMenu()
             // view tutors sorted by ID
             if (tutorViewChoice == 1)
             {
-                sortTutorById(-1);
+                filterTutors(-1, -2, -2);
                 displayHrMenu();
             }
             // view tutors sorted by hourly pay rate
@@ -321,19 +362,22 @@ void displayHrMenu()
             // filter by Rating
             else if (searchTutorChoice == 2)
             {
-                // filterTutorByRating(-1);
+                int ratings = ratingValidation();
+                filterTutors(-2, -2, ratings);
                 displayHrMenu();
             }
             // filter by Subject ID
             else if (searchTutorChoice == 3)
             {
-                // filterTutorBySubjectId(-1);
+                int subjectId = subjectValidation();
+                filterTutors(-2, subjectId, -2);
                 displayHrMenu();
             }
             // filter by Centre ID
             else if (searchTutorChoice == 4)
             {
-                // filterTutorByCentreId(-1);
+                int centreId = centreValidation();
+                filterTutors(centreId, -2, -2);
                 displayHrMenu();
             }
         }
@@ -380,10 +424,10 @@ void displayHrMenu()
     }
 }
 
-void displayAdminMenu(User * login)
+void displayAdminMenu(User *login)
 {
     int choice, tutorViewChoice, searchTutorChoice;
-    Centre * centre = centreLinearSearch(login->id, centreHead);
+    Centre *centre = centreLinearSearch(login->id, centreHead);
     std::cout << "1 - Manage Tutors" << std::endl;
     std::cout << "2 - View Centre Details" << std::endl;
     std::cout << "3 - View All Subjects" << std::endl;
@@ -407,7 +451,7 @@ void displayAdminMenu(User * login)
     switch (input)
     {
     case 1:
-         choice = manageObject(4);
+        choice = manageObject(4);
         // view all tutors
         if (choice == 1)
         {
@@ -416,7 +460,7 @@ void displayAdminMenu(User * login)
             // view tutors sorted by ID
             if (tutorViewChoice == 1)
             {
-                sortTutorById(centre->id);
+                filterTutors(centre->id, -2, -2);
                 displayAdminMenu(login);
             }
             // view tutors sorted by hourly pay rate
@@ -432,36 +476,32 @@ void displayAdminMenu(User * login)
                 displayAdminMenu(login);
             }
         }
-        // // search tutor
-        // else if (choice == 2)
-        // {
-        //     searchTutorChoice = searchTutorDashboard(0);
-        //     system("cls");
-        //     // search tutor by ID
-        //     if (searchTutorChoice == 1)
-        //     {
-        //         searchTutorById();
-        //         displayHrMenu();
-        //     }
-        //     // filter by Rating
-        //     else if (searchTutorChoice == 2)
-        //     {
-        //         // filterTutorByRating(-1);
-        //         displayHrMenu();
-        //     }
-        //     // filter by Subject ID
-        //     else if (searchTutorChoice == 3)
-        //     {
-        //         // filterTutorBySubjectId(-1);
-        //         displayHrMenu();
-        //     }
-        //     // filter by Centre ID
-        //     else if (searchTutorChoice == 4)
-        //     {
-        //         // filterTutorByCentreId(-1);
-        //         displayHrMenu();
-        //     }
-        // }
+        // search tutor
+        else if (choice == 2)
+        {
+            searchTutorChoice = searchTutorDashboard(1);
+            system("cls");
+            // search tutor by ID
+            if (searchTutorChoice == 1)
+            {
+                // searchTutorById();
+                displayAdminMenu(login);
+            }
+            // filter by Rating
+            else if (searchTutorChoice == 2)
+            {
+                int ratings = ratingValidation();
+                filterTutors(centre->id, -2, ratings);
+                displayAdminMenu(login);
+            }
+            // filter by Subject ID
+            else if (searchTutorChoice == 3)
+            {
+                int subjectId = subjectValidation();
+                filterTutors(centre->id, subjectId, -2);
+                displayAdminMenu(login);
+            }
+        }
         // // add Tutor
         // else if (choice == 3)
         // {
