@@ -41,37 +41,125 @@ public:
 } * tutorHead, *tutorTail;
 
 // displayTutorList
-void displayTutorList()
+void filterTutors(int centreID, int subjectID, int tutorRatings)
 {
     system("cls");
-
-    // if tutor list is empty
-    if (tutorHead == NULL)
-    {
-        std::cout << "Tutor list is empty" << std::endl
-                  << std::endl;
-        return;
-    }
-
     Tutor *current = tutorHead;
-    while (current != NULL)
+    Tutor *oneBeforeCurrent = NULL;
+    int count = 0;
+    int index;
+    int skips = 0;
+    int page = 1;
+    float ratings;
+    while (true)
     {
-        std::cout << "Tutor ID: " << current->id << std::endl;
-        std::cout << "Tutor Name: " << current->tutorName << std::endl;
-        std::cout << "Tutor Address: " << current->tutorAddress << std::endl;
-        std::cout << "Tutor Phone Number: " << current->tutorPhoneNumber << std::endl;
-        std::cout << "Date Joined: " << current->dateJoined << std::endl;
-        std::cout << "Date Terminated: " << current->dateTerminated << std::endl;
-        std::cout << "Total Ratings: " << current->totalRatings << std::endl;
-        std::cout << "Rating Count: " << current->ratingCount << std::endl;
-        std::string centreName = linearSearch(centreHead, centreTail, current->centreId)->centreName;
-        std::cout << "Centre ID: " << current->centreId << " - " << centreName << std::endl;
-        std::string subjectName = linearSearch(subjectHead, subjectTail, current->subjectId)->subjectName;
-        std::cout << "Subject ID: " << current->subjectId << " - " << subjectName << std::endl;
-        std::cout << std::endl;
-        current = current->nextAddress;
+        while (current != NULL)
+        {
+            ratings = float(current->totalRatings) / float(current->ratingCount);
+            if ( // View tutors belonging to all Centers
+                (centreID == -1 && subjectID == -2 && tutorRatings == -2)
+                // View tutors belonging to Specific Center
+                || (current->centreId == centreID && subjectID == -2 && tutorRatings == -2)
+                // View tutors belonging to Specific Subject in all centres
+                || (centreID == -2 && current->subjectId == subjectID && tutorRatings == -2)
+                // View tutors belonging to Specific Subject and Specific Center
+                || (current->centreId == centreID && current->subjectId == subjectID && tutorRatings == -2)
+                // View tutors belonging to Specific Ratings in all centres
+                || (centreID == -2 && subjectID == -2 && std::round(ratings) == tutorRatings)
+                // View tutors belonging to Specific Ratings and Specific Centre
+                || (current->centreId == centreID && subjectID == -2 && std::round(ratings) == tutorRatings))
+            {
+                if (count == 0)
+                {
+                    std::cout << "Tutor list - Page " << page << std::endl;
+                    std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                    std::cout << std::setw(6) << std::setfill(' ') << "No.";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Tutor ID";
+                    std::cout << std::setw(21) << std::setfill(' ') << "Tutor Name";
+                    std::cout << std::setw(31) << std::setfill(' ') << "Tutor Address";
+                    std::cout << std::setw(16) << std::setfill(' ') << "Phone Number";
+                    std::cout << std::setw(21) << std::setfill(' ') << "Dated Joined";
+                    std::cout << std::setw(21) << std::setfill(' ') << "Dated Terminated";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Ratings";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Centre ID";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Subject ID" << std::endl;
+                    std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                }
+                count++;
+                index = ((page * 10) - 10 + count);
+                std::cout << std::setw(5) << std::setfill(' ') << index << " ";
+                std::cout << std::setw(10) << std::setfill(' ') << current->id << " ";
+                std::cout << std::setw(20) << std::setfill(' ') << current->tutorName << " ";
+                std::cout << std::setw(30) << std::setfill(' ') << current->tutorAddress << " ";
+                std::cout << std::setw(15) << std::setfill(' ') << current->tutorPhoneNumber << " ";
+                std::cout << std::setw(20) << std::setfill(' ') << current->dateJoined << " ";
+                std::cout << std::setw(20) << std::setfill(' ') << current->dateTerminated;
+                std::cout << std::setw(10) << std::setfill(' ') << ratings << " ";
+                std::cout << std::setw(10) << std::setfill(' ') << current->centreId << " ";
+                std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " " << std::endl;
+            }
+            else
+            {
+                skips++;
+            }
+
+            oneBeforeCurrent = current;
+            current = current->nextAddress;
+            while (count == 10 || current == NULL)
+            {
+                if (count == 0)
+                {
+                    std::cout << "No records found!" << std::endl
+                              << std::endl;
+                    return;
+                }
+                std::cout << "Press 1 to continue or press 0 to exit or 2 to the previous page" << std::endl;
+                int choice;
+                std::cin >> choice;
+                if (choice == 0)
+                {
+                    system("cls");
+                    return;
+                }
+                else if (choice == 2)
+                {
+                    if (page == 1)
+                    {
+                        std::cout << "You are on the first page" << std::endl;
+                    }
+                    else
+                    {
+                        current = oneBeforeCurrent;
+                        for (int i = 0; i < count + 9 + skips; i++)
+                        {
+                            current = current->previousAddress;
+                        }
+                        system("cls");
+                        count = 0;
+                        skips = 0;
+                        page--;
+                    }
+                }
+                else if (choice == 1)
+                {
+                    if (current == NULL)
+                    {
+                        std::cout << "You are on the Last page" << std::endl;
+                    }
+                    else
+                    {
+                        system("cls");
+                        count = 0;
+                        page++;
+                    }
+                }
+                else
+                {
+                    std::cout << "Invalid input" << std::endl;
+                }
+            }
+        }
     }
-    delete current;
 }
 
 void displayTutor(Tutor *tutor)
@@ -85,7 +173,14 @@ void displayTutor(Tutor *tutor)
     std::cout << "Tutor Phone Number: " << tutor->tutorPhoneNumber << std::endl;
     std::cout << "Date Joined: " << tutor->dateJoined << std::endl;
     std::cout << "Date Terminated: " << tutor->dateTerminated << std::endl;
-    std::cout << "Tutor Rating: " << tutor->totalRatings / tutor->ratingCount << std::endl;
+    if (tutor->ratingCount == 0)
+    {
+        std::cout << "No ratings yet" << std::endl;
+    }
+    else
+    {
+        std::cout << "Tutor Rating: " << tutor->totalRatings / tutor->ratingCount << std::endl;
+    }
     std::string centreName = linearSearch(centreHead, centreTail, tutor->centreId)->centreName;
     std::cout << "Centre ID: " << tutor->centreId << " - " << centreName << std::endl;
     std::string subjectName = linearSearch(subjectHead, subjectTail, tutor->subjectId)->subjectName;
@@ -93,7 +188,7 @@ void displayTutor(Tutor *tutor)
     std::cout << std::endl;
 }
 
-void searchTutor()
+void searchTutorById(int centreId)
 {
     std::cout << std::endl
               << "Enter the id of the tutor to search: ";
@@ -111,7 +206,22 @@ void searchTutor()
     Tutor *tutor = linearSearch(tutorHead, tutorTail, id);
     if (tutor != NULL)
     {
-        displayTutor(tutor);
+        // for HR to view - no restrictions
+        if (centreId == -1)
+        {
+            displayTutor(tutor);
+        }
+        // for admin to view - only show the tutor in the same centre
+        else if (centreId != tutor->centreId)
+        {
+            std::cout << "Unable to view tutor info from another centre!" << std::endl
+                      << std::endl;
+            return;
+        }
+        else
+        {
+            displayTutor(tutor);
+        }
     }
     else
     {
@@ -120,7 +230,7 @@ void searchTutor()
     std::cout << std::endl;
 }
 
-void addTutor()
+void addTutor(int adminCentreId)
 {
     std::string tutorName;
     std::string tutorAddress;
@@ -141,32 +251,41 @@ void addTutor()
     std::getline(std::cin, tutorAddress);
     std::cout << "Tutor Phone Number: ";
     std::getline(std::cin, tutorPhoneNumber);
-    std::cout << "Centre ID: ";
-    std::cin >> centreId;
 
-    while (!std::cin.good() || centreId < 0 || centreId > centreTail->id)
+    // Only prompt for centre ID if HR is trying to add a tutor
+    if (adminCentreId == -1)
     {
-
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Invalid input. Please try again." << std::endl;
         std::cout << "Centre ID: ";
         std::cin >> centreId;
-    }
-    bool centreFlag = true;
-    while (centreFlag)
-    {
-        Centre *centre = linearSearch(centreHead, centreTail, centreId);
-        if (centre == NULL)
+
+        while (!std::cin.good() || centreId < 0 || centreId > centreTail->id)
         {
-            std::cout << "Centre not found. Please try again." << std::endl;
+
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please try again." << std::endl;
             std::cout << "Centre ID: ";
             std::cin >> centreId;
         }
-        else
+        bool centreFlag = true;
+        while (centreFlag)
         {
-            centreFlag = false;
+            Centre *centre = linearSearch(centreHead, centreTail, centreId);
+            if (centre == NULL)
+            {
+                std::cout << "Centre not found. Please try again." << std::endl;
+                std::cout << "Centre ID: ";
+                std::cin >> centreId;
+            }
+            else
+            {
+                centreFlag = false;
+            }
         }
+    }
+    else
+    {
+        centreId = adminCentreId;
     }
 
     std::cout << "Subject ID: ";
@@ -203,7 +322,7 @@ void addTutor()
               << std::endl;
 }
 
-void updateTutor()
+void updateTutor(int adminCentreId)
 {
     std::string tutorName;
     std::string tutorAddress;
@@ -228,6 +347,12 @@ void updateTutor()
 
     if (tutor != NULL)
     {
+        if (adminCentreId != -1 && adminCentreId != tutor->centreId)
+        {
+            std::cout << "Unable to update tutor info from another centre!" << std::endl
+                      << std::endl;
+            return;
+        }
         std::cout << "Updating subject: " << tutor->tutorName << std::endl;
         std::cout << "New Tutor Name: ";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -236,32 +361,39 @@ void updateTutor()
         std::getline(std::cin, tutorAddress);
         std::cout << "New Tutor Phone Number: ";
         std::getline(std::cin, tutorPhoneNumber);
-        std::cout << "New Centre ID: ";
-        std::cin >> centreId;
-
-        while (!std::cin.good() || centreId < 0 || centreId > centreTail->id)
+        if (adminCentreId == -1)
         {
-
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Invalid input. Please try again." << std::endl;
             std::cout << "New Centre ID: ";
             std::cin >> centreId;
-        }
-        bool centreFlag = true;
-        while (centreFlag)
-        {
-            Centre *centre = linearSearch(centreHead, centreTail, centreId);
-            if (centre == NULL)
+
+            while (!std::cin.good() || centreId < 0 || centreId > centreTail->id)
             {
-                std::cout << "Centre not found. Please try again." << std::endl;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input. Please try again." << std::endl;
                 std::cout << "New Centre ID: ";
                 std::cin >> centreId;
             }
-            else
+            bool centreFlag = true;
+            while (centreFlag)
             {
-                centreFlag = false;
+                Centre *centre = linearSearch(centreHead, centreTail, centreId);
+                if (centre == NULL)
+                {
+                    std::cout << "Centre not found. Please try again." << std::endl;
+                    std::cout << "New Centre ID: ";
+                    std::cin >> centreId;
+                }
+                else
+                {
+                    centreFlag = false;
+                }
             }
+        }
+        else
+        {
+            centreId = adminCentreId;
         }
 
         std::cout << "New Subject ID: ";
@@ -327,7 +459,7 @@ void deleteTutor()
     std::cout << std::endl;
 }
 
-void addRating()
+void addRating(int adminCentreId)
 {
     std::cout << "Enter the id of the tutor to rate: ";
     int id;
@@ -345,10 +477,17 @@ void addRating()
     if (tutor == NULL)
     {
         std::cout << "Tutor not found. Please try again." << std::endl;
-        addRating();
+        addRating(adminCentreId);
     }
     else
     {
+        // if not HR and not in charge of the tutor's centre, cannot rate
+        if (adminCentreId != -1 && adminCentreId != tutor->centreId)
+        {
+            std::cout << "Unable to rate tutor from another centre!" << std::endl
+                      << std::endl;
+            addRating(adminCentreId);
+        }
         std::cout << "Currently rating " << tutor->tutorName << "." << std::endl;
         std::cout << "Enter the rating: ";
         int rating;
@@ -369,7 +508,7 @@ void addRating()
     }
 }
 
-void terminateTutor()
+void terminateTutor(int adminCentreId)
 {
     std::cout << std::endl
               << "Enter the id of the tutor to be terminated: ";
@@ -389,14 +528,24 @@ void terminateTutor()
 
     if (tutor != NULL)
     {
-        if (tutor->dateTerminated == "")
+        // if not HR and not in charge of the tutor's centre, cannot terminate
+        if (adminCentreId != -1 && adminCentreId != tutor->centreId)
         {
-            tutor->dateTerminated = getDateToday();
-            std::cout << "Tutor " << tutor->tutorName << " has been terminated on " << tutor->dateTerminated << std::endl;
+            std::cout << "Unable to terminate tutor from another centre!" << std::endl
+                      << std::endl;
+            return;
         }
         else
         {
-            std::cout << "Error Occured! Tutor " << tutor->tutorName << " has already been terminated on " << tutor->dateTerminated << std::endl;
+            if (tutor->dateTerminated == "")
+            {
+                tutor->dateTerminated = getDateToday();
+                std::cout << "Tutor " << tutor->tutorName << " has been terminated on " << tutor->dateTerminated << std::endl;
+            }
+            else
+            {
+                std::cout << "Error Occured! Tutor " << tutor->tutorName << " has already been terminated on " << tutor->dateTerminated << std::endl;
+            }
         }
     }
     else
