@@ -38,7 +38,7 @@ void displaySubjectList()
         {
             if (count == 0)
             {
-                std::cout << "User list - Page " << page << std::endl;
+                std::cout << "Subject list - Page " << page << std::endl;
                 std::cout << std::setw(75) << std::setfill('=') << "" << std::endl;
                 std::cout << std::setw(6) << std::setfill(' ') << "No.";
                 std::cout << std::setw(16) << std::setfill(' ') << "Subject ID";

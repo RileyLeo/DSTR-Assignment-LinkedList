@@ -80,12 +80,13 @@ int viewTutorSorted()
     std::cout << "1 - View Tutors sorted by ID" << std::endl;
     std::cout << "2 - View Tutors sorted by Hourly Pay Rate" << std::endl;
     std::cout << "3 - View Tutors sorted by Rating" << std::endl;
+    std::cout << "4 - Back" << std::endl;
 
     int input;
     std::cout << "Enter your choice: ";
     std::cin >> input;
 
-    while (!std::cin.good() || input < 1 || input > 3)
+    while (!std::cin.good() || input < 1 || input > 4)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -105,6 +106,11 @@ int searchTutorDashboard(int userType)
     if (userType == 0)
     {
         std::cout << "4 - Filter Tutors by Centre ID" << std::endl;
+        std::cout << "5 - Back" << std::endl;
+    }
+    else
+    {
+        std::cout << "4 - Back" << std::endl;
     }
 
     int input;
@@ -113,7 +119,7 @@ int searchTutorDashboard(int userType)
 
     if (userType == 0)
     {
-        while (!std::cin.good() || input < 1 || input > 4)
+        while (!std::cin.good() || input < 1 || input > 5)
         {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -124,7 +130,7 @@ int searchTutorDashboard(int userType)
     }
     else
     {
-        while (!std::cin.good() || input < 1 || input > 3)
+        while (!std::cin.good() || input < 1 || input > 4)
         {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -347,6 +353,10 @@ void displayHrMenu()
                 // sortTutorByRating(-1);
                 displayHrMenu();
             }
+            else
+            {
+                displayHrMenu();
+            }
         }
         // search tutor
         else if (choice == 2)
@@ -356,7 +366,7 @@ void displayHrMenu()
             // search tutor by ID
             if (searchTutorChoice == 1)
             {
-                searchTutorById();
+                searchTutorById(-1);
                 displayHrMenu();
             }
             // filter by Rating
@@ -380,17 +390,21 @@ void displayHrMenu()
                 filterTutors(centreId, -2, -2);
                 displayHrMenu();
             }
+            else
+            {
+                displayHrMenu();
+            }
         }
         // add Tutor
         else if (choice == 3)
         {
-            addTutor();
+            addTutor(-1);
             displayHrMenu();
         }
         // edit tutor
         else if (choice == 4)
         {
-            updateTutor();
+            updateTutor(-1);
             displayHrMenu();
         }
         // delete tutor
@@ -401,7 +415,7 @@ void displayHrMenu()
         }
         else if (choice == 6)
         {
-            terminateTutor();
+            terminateTutor(-1);
             displayHrMenu();
         }
         else if (choice == 7)
@@ -411,7 +425,7 @@ void displayHrMenu()
         }
     case 5:
         // ---------------------------------------------------------------------------------- Add Ratings ----------------------------------------------------------------------------------
-        addRating();
+        addRating(-1);
         displayHrMenu();
     case 6:
         displayArchiveList();
@@ -439,7 +453,7 @@ void displayAdminMenu(User *login)
     std::cout << "Enter your choice: ";
     std::cin >> input;
 
-    while (!std::cin.good() || input < 1 || input > 5)
+    while (!std::cin.good() || input < 1 || input > 6)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -450,6 +464,7 @@ void displayAdminMenu(User *login)
 
     switch (input)
     {
+    // ---------------------------------------------------------------------------------- Manage Tutors ----------------------------------------------------------------------------------
     case 1:
         choice = manageObject(4);
         // view all tutors
@@ -475,6 +490,10 @@ void displayAdminMenu(User *login)
                 // sortTutorByRating(-1);
                 displayAdminMenu(login);
             }
+            else
+            {
+                displayAdminMenu(login);
+            }
         }
         // search tutor
         else if (choice == 2)
@@ -484,7 +503,7 @@ void displayAdminMenu(User *login)
             // search tutor by ID
             if (searchTutorChoice == 1)
             {
-                // searchTutorById();
+                searchTutorById(centre->id);
                 displayAdminMenu(login);
             }
             // filter by Rating
@@ -501,47 +520,54 @@ void displayAdminMenu(User *login)
                 filterTutors(centre->id, subjectId, -2);
                 displayAdminMenu(login);
             }
+            else
+            {
+                displayAdminMenu(login);
+            }
         }
-        // // add Tutor
-        // else if (choice == 3)
-        // {
-        //     addTutor();
-        //     displayHrMenu();
-        // }
-        // // edit tutor
-        // else if (choice == 4)
-        // {
-        //     updateTutor();
-        //     displayHrMenu();
-        // }
-        // // delete tutor
-        // else if (choice == 5)
-        // {
-        //     deleteTutor();
-        //     displayHrMenu();
-        // }
-        // else if (choice == 6)
-        // {
-        //     terminateTutor();
-        //     displayHrMenu();
-        // }
-        // else if (choice == 7)
-        // {
-        //     system("cls");
-        //     displayHrMenu();
-        // }
+        // add Tutor
+        else if (choice == 3)
+        {
+            addTutor(centre->id);
+            displayAdminMenu(login);
+        }
+        // edit tutor
+        else if (choice == 4)
+        {
+            updateTutor(centre->id);
+            displayAdminMenu(login);
+        }
+        // delete tutor
+        else if (choice == 5)
+        {
+            system("cls");
+            std::cout << "The delete function is not accessible by Admins. Please contact HR for support." << std::endl
+                      << std::endl;
+            displayAdminMenu(login);
+        }
+        else if (choice == 6)
+        {
+            terminateTutor(centre->id);
+            displayAdminMenu(login);
+        }
+        else if (choice == 7)
+        {
+            system("cls");
+            displayAdminMenu(login);
+        }
     case 2:
-        // viewCentreDetails();
-        break;
+        displayCentre(centre);
+        displayAdminMenu(login);
     case 3:
-        // viewAllSubjects();
-        break;
+        std::cout << std::endl;
+        displaySubjectList();
+        displayAdminMenu(login);
     case 4:
-        // addRatings();
-        break;
+        addRating(centre->id);
+        displayAdminMenu(login);
     case 5:
-        // viewTutorArchive();
-        break;
+        displayArchiveList();
+        displayHrMenu();
     case 6:
         std::cout << "Exiting program..." << std::endl;
         exit(0);

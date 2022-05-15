@@ -177,9 +177,23 @@ void addCentre()
     while (flag)
     {
         User *admin = linearSearch(userHead, userTail, adminId);
-        if (admin->userType != 1 || admin == NULL)
+        Centre *centre = centreLinearSearch(adminId, centreHead);
+
+        if (admin == NULL || centre == NULL)
+        {
+            std::cout << "User does not exist" << std::endl;
+            std::cout << "Enter the admin id: ";
+            std::cin >> adminId;
+        }
+        else if (admin->userType != 1)
         {
             std::cout << "User is not an admin" << std::endl;
+            std::cout << "Enter the admin id: ";
+            std::cin >> adminId;
+        }
+        else if (centre != NULL)
+        {
+            std::cout << "Admin is already in charge of a centre" << std::endl;
             std::cout << "Enter the admin id: ";
             std::cin >> adminId;
         }
