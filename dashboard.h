@@ -147,8 +147,10 @@ int ratingValidation()
     int rating;
     std::cout << "Enter your rating: ";
     std::cin >> rating;
-    while (!std::cin.good() || rating < 1 || rating > 5)
+    while (std::cin.fail() || rating < 1 || rating > 5)
     {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Invalid input. Please try again." << std::endl;
         std::cout << "Enter your rating: ";
         std::cin >> rating;
@@ -163,6 +165,8 @@ int subjectValidation()
     std::cin >> subjectId;
     while (!std::cin.good() || linearSearch(subjectHead, subjectTail, subjectId) == NULL)
     {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Invalid input. Please try again." << std::endl;
         std::cout << "Enter your subject ID: ";
         std::cin >> subjectId;
@@ -177,6 +181,8 @@ int centreValidation()
     std::cin >> centreId;
     while (!std::cin.good() || linearSearch(centreHead, centreTail, centreId) == NULL)
     {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Invalid input. Please try again." << std::endl;
         std::cout << "Enter your centre ID: ";
         std::cin >> centreId;
@@ -338,7 +344,7 @@ void displayHrMenu()
             // view tutors sorted by ID
             if (tutorViewChoice == 1)
             {
-                filterTutors(-1, -2, -2);
+                filterTutors(-1, -2, -2, tutorHead);
                 displayHrMenu();
             }
             // view tutors sorted by hourly pay rate
@@ -350,7 +356,9 @@ void displayHrMenu()
             // view tutors sorted by rating
             else if (tutorViewChoice == 3)
             {
-                // sortTutorByRating(-1);
+                duplicateTutorLinkedList(tutorRatingHead, tutorRatingTail, tutorHead);
+                tutorRatingHead = mergeSort(tutorRatingHead);
+                filterTutors(-1, -2, -2, tutorRatingHead);
                 displayHrMenu();
             }
             else
@@ -373,21 +381,21 @@ void displayHrMenu()
             else if (searchTutorChoice == 2)
             {
                 int ratings = ratingValidation();
-                filterTutors(-2, -2, ratings);
+                filterTutors(-2, -2, ratings, tutorHead);
                 displayHrMenu();
             }
             // filter by Subject ID
             else if (searchTutorChoice == 3)
             {
                 int subjectId = subjectValidation();
-                filterTutors(-2, subjectId, -2);
+                filterTutors(-2, subjectId, -2, tutorHead);
                 displayHrMenu();
             }
             // filter by Centre ID
             else if (searchTutorChoice == 4)
             {
                 int centreId = centreValidation();
-                filterTutors(centreId, -2, -2);
+                filterTutors(centreId, -2, -2, tutorHead);
                 displayHrMenu();
             }
             else
@@ -475,7 +483,7 @@ void displayAdminMenu(User *login)
             // view tutors sorted by ID
             if (tutorViewChoice == 1)
             {
-                filterTutors(centre->id, -2, -2);
+                filterTutors(centre->id, -2, -2, tutorHead);
                 displayAdminMenu(login);
             }
             // view tutors sorted by hourly pay rate
@@ -510,14 +518,14 @@ void displayAdminMenu(User *login)
             else if (searchTutorChoice == 2)
             {
                 int ratings = ratingValidation();
-                filterTutors(centre->id, -2, ratings);
+                filterTutors(centre->id, -2, ratings, tutorHead);
                 displayAdminMenu(login);
             }
             // filter by Subject ID
             else if (searchTutorChoice == 3)
             {
                 int subjectId = subjectValidation();
-                filterTutors(centre->id, subjectId, -2);
+                filterTutors(centre->id, subjectId, -2, tutorHead);
                 displayAdminMenu(login);
             }
             else

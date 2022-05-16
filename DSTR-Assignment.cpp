@@ -77,6 +77,18 @@ void generateMockData()
     insertAtEnd(tutor14, tutorHead, tutorTail);
     Tutor *tutor15 = new Tutor(getListSize(tutorHead), "Coconut Tree", "Taman OUG, Kuala Lumpur", "+60123456715", "03/08/2021", "", 82, 20, 2, 4);
     insertAtEnd(tutor15, tutorHead, tutorTail);
+
+    Tutor *tutor16 = new Tutor(getListSize(tutorHead), "Darren Tan", "ParkHill, Bukit Jalil", "+60123456719", "15/03/2020", "15/03/2022", 100, 20, 2, 0);
+    insertAtEnd(tutor16, tutorHead, tutorTail);
+    Tutor *tutor17 = new Tutor(getListSize(tutorHead), "Dickenson Yroh", "Pinnacle, Sri Petaling", "+60123456718", "03/08/2021", "03/04/2022", 70, 20, 2, 1);
+    insertAtEnd(tutor17, tutorHead, tutorTail);
+    Tutor *tutor18 = new Tutor(getListSize(tutorHead), "Damien Bro", "Old Klang Road, Kuchai Lama", "+60123456717", "15/03/2020", "", 55, 20, 2, 2);
+    insertAtEnd(tutor18, tutorHead, tutorTail);
+    Tutor *tutor19 = new Tutor(getListSize(tutorHead), "Dante Inferno", "SS15, Subang Jaya", "+60123456716", "15/03/2020", "15/03/2021", 65, 20, 2, 3);
+    insertAtEnd(tutor19, tutorHead, tutorTail);
+    Tutor *tutor20 = new Tutor(getListSize(tutorHead), "Dadente Fyrous", "Taman OUG, Kuala Lumpur", "+60123456715", "03/08/2021", "", 32, 20, 2, 4);
+    insertAtEnd(tutor20, tutorHead, tutorTail);
+
 }
 
 void archiveTerminated()

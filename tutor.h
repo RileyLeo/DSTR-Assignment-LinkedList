@@ -38,13 +38,13 @@ public:
         this->nextAddress = NULL;
         this->previousAddress = NULL;
     };
-} * tutorHead, *tutorTail;
+} * tutorHead, *tutorTail, *tutorHPRHead, *tutorHPRTail, *tutorRatingHead, *tutorRatingTail;
 
 // displayTutorList
-void filterTutors(int centreID, int subjectID, int tutorRatings)
+void filterTutors(int centreID, int subjectID, int tutorRatings, Tutor *head)
 {
     system("cls");
-    Tutor *current = tutorHead;
+    Tutor *current = head;
     Tutor *oneBeforeCurrent = NULL;
     int count = 0;
     int index;
@@ -55,7 +55,14 @@ void filterTutors(int centreID, int subjectID, int tutorRatings)
     {
         while (current != NULL)
         {
-            ratings = float(current->totalRatings) / float(current->ratingCount);
+            if (current->ratingCount == 0)
+            {
+                ratings = 0;
+            }
+            else
+            {
+                ratings = float(current->totalRatings) / float(current->ratingCount);
+            }
             if ( // View tutors belonging to all Centers
                 (centreID == -1 && subjectID == -2 && tutorRatings == -2)
                 // View tutors belonging to Specific Center
@@ -94,7 +101,7 @@ void filterTutors(int centreID, int subjectID, int tutorRatings)
                 std::cout << std::setw(15) << std::setfill(' ') << current->tutorPhoneNumber << " ";
                 std::cout << std::setw(20) << std::setfill(' ') << current->dateJoined << " ";
                 std::cout << std::setw(20) << std::setfill(' ') << current->dateTerminated;
-                std::cout << std::setw(10) << std::setfill(' ') << ratings << " ";
+                std::cout << std::setw(10) << std::setfill(' ') << std::fixed << std::setprecision(2)<< ratings << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->centreId << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " " << std::endl;
             }
@@ -552,4 +559,79 @@ void terminateTutor(int adminCentreId)
     {
         std::cout << "Tutor not found. Please try again." << std::endl;
     }
+}
+
+void duplicateTutorLinkedList(Tutor *&duplicatedhead, Tutor *&duplicatedTail, Tutor *originalHead)
+{ 
+    duplicatedhead = NULL;
+    duplicatedTail = NULL;
+    Tutor *current = originalHead;
+    while (current != NULL)
+    {
+        Tutor *newObject = new Tutor(getListSize(duplicatedhead), current->tutorName, current->tutorAddress, current->tutorPhoneNumber, current->dateJoined, current->dateTerminated, current->totalRatings, current->ratingCount, current->centreId, current->subjectId);
+        // *newObject = *current;
+        insertAtEnd(newObject, duplicatedhead, duplicatedTail);
+        current = current->nextAddress;
+    }
+}
+
+// ---------------------------------------------- Sorting Algorithm ----------------------------------------------
+// Split a doubly linked list (DLL) into 2 DLLs of
+// half sizes
+Tutor *split(Tutor *head)
+{
+    Tutor *fast = head, *slow = head;
+    while (fast->nextAddress && fast->nextAddress->nextAddress)
+    {
+        fast = fast->nextAddress->nextAddress;
+        slow = slow->nextAddress;
+    }
+    Tutor *temp = slow->nextAddress;
+    slow->nextAddress = NULL;
+    return temp;
+}
+
+// Function to merge two linked lists
+Tutor *merge(Tutor *first, Tutor *second)
+{
+    // If first linked list is empty
+    if (!first)
+        return second;
+
+    // If second linked list is empty
+    if (!second)
+        return first;
+
+    float firstRatings = float(first->totalRatings) / float(first->ratingCount);
+    float secondRatings = float(second->totalRatings) / float(second->ratingCount);
+    // Pick the smaller value
+    if (firstRatings <= secondRatings)
+    {
+        first->nextAddress = merge(first->nextAddress, second);
+        first->nextAddress->previousAddress = first;
+        first->previousAddress = NULL;
+        return first;
+    }
+    else
+    {
+        second->nextAddress = merge(first, second->nextAddress);
+        second->nextAddress->previousAddress = second;
+        second->previousAddress = NULL;
+        return second;
+    }
+}
+
+// Function to do merge sort
+Tutor *mergeSort(Tutor *head)
+{
+    if (!head || !head->nextAddress)
+        return head;
+    Tutor *second = split(head);
+
+    // Recur for left and right halves
+    head = mergeSort(head);
+    second = mergeSort(second);
+
+    // Merge the two sorted halves
+    return merge(head, second);
 }
