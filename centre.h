@@ -166,7 +166,6 @@ void addCentre()
     // adminId must be an existing admin
     while (!std::cin.good() || adminId < 0 || adminId > userTail->id)
     {
-
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Invalid input. Please try again." << std::endl;
@@ -179,8 +178,10 @@ void addCentre()
         User *admin = linearSearch(userHead, userTail, adminId);
         Centre *centre = centreLinearSearch(adminId, centreHead);
 
-        if (admin == NULL || centre == NULL)
+        if (admin == NULL)
         {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "User does not exist" << std::endl;
             std::cout << "Enter the admin id: ";
             std::cin >> adminId;

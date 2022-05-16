@@ -27,15 +27,15 @@ void generateMockData()
     insertAtEnd(user4, userHead, userTail);
     // }
 
-    Subject *subject1 = new Subject(getListSize(subjectHead), "Maths", 20.00);
+    Subject *subject1 = new Subject(getListSize(subjectHead), "Maths", 20.00);  // 2
     insertAtEnd(subject1, subjectHead, subjectTail);
-    Subject *subject2 = new Subject(getListSize(subjectHead), "Physics", 22.00);
+    Subject *subject2 = new Subject(getListSize(subjectHead), "Physics", 22.00); // 3
     insertAtEnd(subject2, subjectHead, subjectTail);
-    Subject *subject3 = new Subject(getListSize(subjectHead), "English", 17.00);
+    Subject *subject3 = new Subject(getListSize(subjectHead), "English", 17.00); // 1
     insertAtEnd(subject3, subjectHead, subjectTail);
-    Subject *subject4 = new Subject(getListSize(subjectHead), "Physics", 22.00);
+    Subject *subject4 = new Subject(getListSize(subjectHead), "Physics", 22.00); // 3
     insertAtEnd(subject4, subjectHead, subjectTail);
-    Subject *subject5 = new Subject(getListSize(subjectHead), "Chemistry", 22.00);
+    Subject *subject5 = new Subject(getListSize(subjectHead), "Chemistry", 22.00); // 3
     insertAtEnd(subject5, subjectHead, subjectTail);
 
     Centre *centre1 = new Centre(getListSize(centreHead), "eXcel HQ", "Bukit Jalil", 1);

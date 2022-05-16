@@ -563,6 +563,13 @@ void terminateTutor(int adminCentreId)
 
 void duplicateTutorLinkedList(Tutor *&duplicatedhead, Tutor *&duplicatedTail, Tutor *originalHead)
 { 
+    //traverse duplicated head linked list and delete every node
+    while (duplicatedhead != NULL)
+    {
+        Tutor *temp = duplicatedhead;
+        duplicatedhead = duplicatedhead->nextAddress;
+        delete temp;
+    }
     duplicatedhead = NULL;
     duplicatedTail = NULL;
     Tutor *current = originalHead;
@@ -591,8 +598,9 @@ Tutor *split(Tutor *head)
     return temp;
 }
 
-// Function to merge two linked lists
-Tutor *merge(Tutor *first, Tutor *second)
+// -----------------------------------------------------------------Merge Sort for Ratings-----------------------------------------------------------------
+// merge linked list based on ratings
+Tutor *mergeRatings(Tutor *first, Tutor *second)
 {
     // If first linked list is empty
     if (!first)
@@ -607,31 +615,90 @@ Tutor *merge(Tutor *first, Tutor *second)
     // Pick the smaller value
     if (firstRatings <= secondRatings)
     {
-        first->nextAddress = merge(first->nextAddress, second);
+        first->nextAddress = mergeRatings(first->nextAddress, second);
         first->nextAddress->previousAddress = first;
         first->previousAddress = NULL;
         return first;
     }
     else
     {
-        second->nextAddress = merge(first, second->nextAddress);
+        second->nextAddress = mergeRatings(first, second->nextAddress);
         second->nextAddress->previousAddress = second;
         second->previousAddress = NULL;
         return second;
     }
 }
 
-// Function to do merge sort
-Tutor *mergeSort(Tutor *head)
+// merge sort for ratings
+Tutor *mergeSortRatings(Tutor *head)
 {
     if (!head || !head->nextAddress)
         return head;
     Tutor *second = split(head);
 
     // Recur for left and right halves
-    head = mergeSort(head);
-    second = mergeSort(second);
+    head = mergeSortRatings(head);
+    second = mergeSortRatings(second);
 
     // Merge the two sorted halves
-    return merge(head, second);
+    return mergeRatings(head, second);
+}
+
+// -----------------------------------------------------------------Merge Sort for Hourly Pay Rate-----------------------------------------------------------------
+//linear search to search for subjects based on tutor's tutor id
+double HPRLinearSearch(Tutor *tutor, Subject *subjectHead)
+{
+    Subject *current = subjectHead;
+    while (current != NULL)
+    {
+        if (current->id == tutor->subjectId)
+        {
+            return current->hourlyPayRate;
+        }
+        current = current->nextAddress;
+    }
+    return NULL;
+}
+
+// merge linked list based on Hourly Pay Rate
+Tutor *mergeHPR(Tutor *first, Tutor *second)
+{
+    // If first linked list is empty
+    if (!first)
+        return second;
+
+    // If second linked list is empty
+    if (!second)
+        return first;
+
+    // Pick the smaller value
+    if (HPRLinearSearch(first, subjectHead) <= HPRLinearSearch(second, subjectHead))
+    {
+        first->nextAddress = mergeHPR(first->nextAddress, second);
+        first->nextAddress->previousAddress = first;
+        first->previousAddress = NULL;
+        return first;
+    }
+    else
+    {
+        second->nextAddress = mergeHPR(first, second->nextAddress);
+        second->nextAddress->previousAddress = second;
+        second->previousAddress = NULL;
+        return second;
+    }
+}
+
+// merge sort for Hourly Pay Rate
+Tutor *mergeSortHPR(Tutor *head)
+{
+    if (!head || !head->nextAddress)
+        return head;
+    Tutor *second = split(head);
+
+    // Recur for left and right halves
+    head = mergeSortHPR(head);
+    second = mergeSortHPR(second);
+
+    // Merge the two sorted halves
+    return mergeHPR(head, second);
 }

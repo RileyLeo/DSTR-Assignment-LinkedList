@@ -350,14 +350,16 @@ void displayHrMenu()
             // view tutors sorted by hourly pay rate
             else if (tutorViewChoice == 2)
             {
-                // sortTutorByHourlyPayRate(-1);
+                duplicateTutorLinkedList(tutorHPRHead, tutorHPRTail, tutorHead);
+                tutorHPRHead = mergeSortHPR(tutorHPRHead);
+                filterTutors(-1, -2, -2, tutorHPRHead);
                 displayHrMenu();
             }
             // view tutors sorted by rating
             else if (tutorViewChoice == 3)
             {
                 duplicateTutorLinkedList(tutorRatingHead, tutorRatingTail, tutorHead);
-                tutorRatingHead = mergeSort(tutorRatingHead);
+                tutorRatingHead = mergeSortRatings(tutorRatingHead);
                 filterTutors(-1, -2, -2, tutorRatingHead);
                 displayHrMenu();
             }
@@ -489,13 +491,17 @@ void displayAdminMenu(User *login)
             // view tutors sorted by hourly pay rate
             else if (tutorViewChoice == 2)
             {
-                // sortTutorByHourlyPayRate(-1);
+                duplicateTutorLinkedList(tutorHPRHead, tutorHPRTail, tutorHead);
+                tutorHPRHead = mergeSortHPR(tutorHPRHead);
+                filterTutors(centre->id, -2, -2, tutorHPRHead);
                 displayAdminMenu(login);
             }
             // view tutors sorted by rating
             else if (tutorViewChoice == 3)
             {
-                // sortTutorByRating(-1);
+                duplicateTutorLinkedList(tutorRatingHead, tutorRatingTail, tutorHead);
+                tutorRatingHead = mergeSortRatings(tutorRatingHead);
+                filterTutors(centre->id, -2, -2, tutorRatingHead);
                 displayAdminMenu(login);
             }
             else
