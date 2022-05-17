@@ -79,18 +79,21 @@ void filterTutors(int centreID, int subjectID, int tutorRatings, Tutor *head)
                 if (count == 0)
                 {
                     std::cout << "Tutor list - Page " << page << std::endl;
-                    std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                    std::cout << std::setw(237) << std::setfill('=') << "" << std::endl;
                     std::cout << std::setw(6) << std::setfill(' ') << "No.";
                     std::cout << std::setw(11) << std::setfill(' ') << "Tutor ID";
                     std::cout << std::setw(21) << std::setfill(' ') << "Tutor Name";
                     std::cout << std::setw(31) << std::setfill(' ') << "Tutor Address";
                     std::cout << std::setw(16) << std::setfill(' ') << "Phone Number";
-                    std::cout << std::setw(21) << std::setfill(' ') << "Dated Joined";
-                    std::cout << std::setw(21) << std::setfill(' ') << "Dated Terminated";
+                    std::cout << std::setw(13) << std::setfill(' ') << "Dated Joined";
+                    std::cout << std::setw(17) << std::setfill(' ') << "Dated Terminated";
                     std::cout << std::setw(11) << std::setfill(' ') << "Ratings";
                     std::cout << std::setw(11) << std::setfill(' ') << "Centre ID";
-                    std::cout << std::setw(11) << std::setfill(' ') << "Subject ID" << std::endl;
-                    std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                    std::cout << std::setw(26) << std::setfill(' ') << "Centre Name";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Subject ID";
+                    std::cout << std::setw(16) << std::setfill(' ') << "Subject Name";
+                    std::cout << std::setw(17) << std::setfill(' ') << "Hourly Pay Rate" << std::endl;
+                    std::cout << std::setw(237) << std::setfill('=') << "" << std::endl;
                 }
                 count++;
                 index = ((page * 10) - 10 + count);
@@ -99,11 +102,14 @@ void filterTutors(int centreID, int subjectID, int tutorRatings, Tutor *head)
                 std::cout << std::setw(20) << std::setfill(' ') << current->tutorName << " ";
                 std::cout << std::setw(30) << std::setfill(' ') << current->tutorAddress << " ";
                 std::cout << std::setw(15) << std::setfill(' ') << current->tutorPhoneNumber << " ";
-                std::cout << std::setw(20) << std::setfill(' ') << current->dateJoined << " ";
-                std::cout << std::setw(20) << std::setfill(' ') << current->dateTerminated;
-                std::cout << std::setw(10) << std::setfill(' ') << std::fixed << std::setprecision(2)<< ratings << " ";
+                std::cout << std::setw(12) << std::setfill(' ') << current->dateJoined << " ";
+                std::cout << std::setw(16) << std::setfill(' ') << current->dateTerminated;
+                std::cout << std::setw(10) << std::setfill(' ') << std::fixed << std::setprecision(2) << ratings << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->centreId << " ";
-                std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " " << std::endl;
+                std::cout << std::setw(25) << std::setfill(' ') << linearSearch(centreHead, centreTail, current->centreId)->centreName << " ";
+                std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " ";
+                std::cout << std::setw(15) << std::setfill(' ') << linearSearch(subjectHead, subjectTail, current->subjectId)->subjectName << " ";
+                std::cout << std::setw(16) << std::setfill(' ') << linearSearch(subjectHead, subjectTail, current->subjectId)->hourlyPayRate << std::endl;
             }
             else
             {
@@ -192,6 +198,7 @@ void displayTutor(Tutor *tutor)
     std::cout << "Centre ID: " << tutor->centreId << " - " << centreName << std::endl;
     std::string subjectName = linearSearch(subjectHead, subjectTail, tutor->subjectId)->subjectName;
     std::cout << "Subject ID: " << tutor->subjectId << " - " << subjectName << std::endl;
+    std::cout << "Hourly Pay Rate: " << linearSearch(subjectHead, subjectTail, tutor->subjectId)->hourlyPayRate << std::endl;
     std::cout << std::endl;
 }
 
@@ -562,8 +569,8 @@ void terminateTutor(int adminCentreId)
 }
 
 void duplicateTutorLinkedList(Tutor *&duplicatedhead, Tutor *&duplicatedTail, Tutor *originalHead)
-{ 
-    //traverse duplicated head linked list and delete every node
+{
+    // traverse duplicated head linked list and delete every node
     while (duplicatedhead != NULL)
     {
         Tutor *temp = duplicatedhead;
@@ -645,7 +652,7 @@ Tutor *mergeSortRatings(Tutor *head)
 }
 
 // -----------------------------------------------------------------Merge Sort for Hourly Pay Rate-----------------------------------------------------------------
-//linear search to search for subjects based on tutor's tutor id
+// linear search to search for subjects based on tutor's tutor id
 double HPRLinearSearch(Tutor *tutor, Subject *subjectHead)
 {
     Subject *current = subjectHead;

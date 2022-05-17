@@ -113,18 +113,21 @@ void displayArchiveList()
             if (count == 0)
             {
                 std::cout << "Tutor list - Page " << page << std::endl;
-                std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                std::cout << std::setw(237) << std::setfill('=') << "" << std::endl;
                 std::cout << std::setw(6) << std::setfill(' ') << "No.";
                 std::cout << std::setw(11) << std::setfill(' ') << "Tutor ID";
                 std::cout << std::setw(21) << std::setfill(' ') << "Tutor Name";
                 std::cout << std::setw(31) << std::setfill(' ') << "Tutor Address";
                 std::cout << std::setw(16) << std::setfill(' ') << "Phone Number";
-                std::cout << std::setw(21) << std::setfill(' ') << "Dated Joined";
-                std::cout << std::setw(21) << std::setfill(' ') << "Dated Terminated";
+                std::cout << std::setw(13) << std::setfill(' ') << "Dated Joined";
+                std::cout << std::setw(17) << std::setfill(' ') << "Dated Terminated";
                 std::cout << std::setw(11) << std::setfill(' ') << "Ratings";
                 std::cout << std::setw(11) << std::setfill(' ') << "Centre ID";
-                std::cout << std::setw(11) << std::setfill(' ') << "Subject ID" << std::endl;
-                std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                std::cout << std::setw(26) << std::setfill(' ') << "Centre Name";
+                std::cout << std::setw(11) << std::setfill(' ') << "Subject ID";
+                std::cout << std::setw(16) << std::setfill(' ') << "Subject Name";
+                std::cout << std::setw(17) << std::setfill(' ') << "Hourly Pay Rate" << std::endl;
+                std::cout << std::setw(237) << std::setfill('=') << "" << std::endl;
             }
             count++;
             index = ((page * 10) - 10 + count);
@@ -133,11 +136,14 @@ void displayArchiveList()
             std::cout << std::setw(20) << std::setfill(' ') << current->tutorName << " ";
             std::cout << std::setw(30) << std::setfill(' ') << current->tutorAddress << " ";
             std::cout << std::setw(15) << std::setfill(' ') << current->tutorPhoneNumber << " ";
-            std::cout << std::setw(20) << std::setfill(' ') << current->dateJoined << " ";
-            std::cout << std::setw(20) << std::setfill(' ') << current->dateTerminated;
+            std::cout << std::setw(12) << std::setfill(' ') << current->dateJoined << " ";
+            std::cout << std::setw(16) << std::setfill(' ') << current->dateTerminated;
             std::cout << std::setw(10) << std::setfill(' ') << std::fixed << std::setprecision(2) << ratings << " ";
             std::cout << std::setw(10) << std::setfill(' ') << current->centreId << " ";
-            std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " " << std::endl;
+            std::cout << std::setw(25) << std::setfill(' ') << linearSearch(centreHead, centreTail, current->centreId)->centreName << " ";
+            std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " ";
+            std::cout << std::setw(15) << std::setfill(' ') << linearSearch(subjectHead, subjectTail, current->subjectId)->subjectName << " ";
+            std::cout << std::setw(16) << std::setfill(' ') << linearSearch(subjectHead, subjectTail, current->subjectId)->hourlyPayRate << std::endl;
 
             oneBeforeCurrent = current;
             current = current->nextAddress;
