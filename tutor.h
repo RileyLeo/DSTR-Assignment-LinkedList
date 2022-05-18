@@ -367,7 +367,7 @@ void updateTutor(int adminCentreId)
                       << std::endl;
             return;
         }
-        std::cout << "Updating subject: " << tutor->tutorName << std::endl;
+        std::cout << "Updating tutor: " << tutor->tutorName << std::endl;
         std::cout << "New Tutor Name: ";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, tutorName);
@@ -465,7 +465,7 @@ void deleteTutor()
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Invalid input. Please try again." << std::endl;
-        std::cout << "Enter the id of the subject to be deleted: ";
+        std::cout << "Enter the id of the tutor to be deleted: ";
         std::cin >> id;
     }
     std::cout << std::endl;
