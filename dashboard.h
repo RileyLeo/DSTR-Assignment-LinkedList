@@ -581,7 +581,7 @@ void displayAdminMenu(User *login)
         displayAdminMenu(login);
     case 5:
         displayArchiveList();
-        displayHrMenu();
+        displayAdminMenu(login);
     case 6:
         std::cout << "Exiting program..." << std::endl;
         exit(0);
