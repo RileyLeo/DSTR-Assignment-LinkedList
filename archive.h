@@ -112,7 +112,7 @@ void displayArchiveList()
             }
             if (count == 0)
             {
-                std::cout << "Tutor list - Page " << page << std::endl;
+                std::cout << "Tutor archive list - Page " << page << std::endl;
                 std::cout << std::setw(237) << std::setfill('=') << "" << std::endl;
                 std::cout << std::setw(6) << std::setfill(' ') << "No.";
                 std::cout << std::setw(11) << std::setfill(' ') << "Tutor ID";
