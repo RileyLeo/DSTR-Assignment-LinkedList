@@ -56,38 +56,6 @@ public:
 
 } * archiveHead, *archiveTail;
 
-// displayTutorList
-// void displayArchiveList()
-// {
-//     system("cls");
-//     // if tutor list is empty
-//     if (archiveHead == NULL)
-//     {
-//         std::cout << "Archive list is empty" << std::endl
-//                   << std::endl;
-//         return;
-//     }
-
-//     Archive *current = archiveHead;
-//     while (current != NULL)
-//     {
-//         std::cout << "Tutor ID: " << current->id << std::endl;
-//         std::cout << "Tutor Name: " << current->tutorName << std::endl;
-//         std::cout << "Tutor Address: " << current->tutorAddress << std::endl;
-//         std::cout << "Tutor Phone Number: " << current->tutorPhoneNumber << std::endl;
-//         std::cout << "Date Joined: " << current->dateJoined << std::endl;
-//         std::cout << "Date Terminated: " << current->dateTerminated << std::endl;
-//         std::cout << "Total Ratings: " << current->totalRatings << std::endl;
-//         std::cout << "Rating Count: " << current->ratingCount << std::endl;
-//         std::cout << "Centre ID: " << current->centreId << std::endl;
-//         std::cout << "Subject ID: " << current->subjectId << std::endl;
-//         std::cout << std::endl
-//                   << std::endl;
-//         current = current->nextAddress;
-//     }
-//     delete current;
-// }
-
 void displayArchiveList()
 {
     system("cls");

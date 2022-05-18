@@ -147,7 +147,7 @@ int ratingValidation()
     int rating;
     std::cout << "Enter your rating: ";
     std::cin >> rating;
-    while (std::cin.fail() || rating < 1 || rating > 5)
+    while (!std::cin.good() || rating < 1 || rating > 5)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
