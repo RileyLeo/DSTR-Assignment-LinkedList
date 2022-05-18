@@ -38,13 +38,13 @@ public:
         this->nextAddress = NULL;
         this->previousAddress = NULL;
     };
-} * tutorHead, *tutorTail;
+} * tutorHead, *tutorTail, *tutorHPRHead, *tutorHPRTail, *tutorRatingHead, *tutorRatingTail;
 
 // displayTutorList
-void filterTutors(int centreID, int subjectID, int tutorRatings)
+void filterTutors(int centreID, int subjectID, int tutorRatings, Tutor *head)
 {
     system("cls");
-    Tutor *current = tutorHead;
+    Tutor *current = head;
     Tutor *oneBeforeCurrent = NULL;
     int count = 0;
     int index;
@@ -55,7 +55,14 @@ void filterTutors(int centreID, int subjectID, int tutorRatings)
     {
         while (current != NULL)
         {
-            ratings = float(current->totalRatings) / float(current->ratingCount);
+            if (current->ratingCount == 0)
+            {
+                ratings = 0;
+            }
+            else
+            {
+                ratings = float(current->totalRatings) / float(current->ratingCount);
+            }
             if ( // View tutors belonging to all Centers
                 (centreID == -1 && subjectID == -2 && tutorRatings == -2)
                 // View tutors belonging to Specific Center
@@ -72,18 +79,21 @@ void filterTutors(int centreID, int subjectID, int tutorRatings)
                 if (count == 0)
                 {
                     std::cout << "Tutor list - Page " << page << std::endl;
-                    std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                    std::cout << std::setw(237) << std::setfill('=') << "" << std::endl;
                     std::cout << std::setw(6) << std::setfill(' ') << "No.";
                     std::cout << std::setw(11) << std::setfill(' ') << "Tutor ID";
                     std::cout << std::setw(21) << std::setfill(' ') << "Tutor Name";
                     std::cout << std::setw(31) << std::setfill(' ') << "Tutor Address";
                     std::cout << std::setw(16) << std::setfill(' ') << "Phone Number";
-                    std::cout << std::setw(21) << std::setfill(' ') << "Dated Joined";
-                    std::cout << std::setw(21) << std::setfill(' ') << "Dated Terminated";
+                    std::cout << std::setw(13) << std::setfill(' ') << "Dated Joined";
+                    std::cout << std::setw(17) << std::setfill(' ') << "Dated Terminated";
                     std::cout << std::setw(11) << std::setfill(' ') << "Ratings";
                     std::cout << std::setw(11) << std::setfill(' ') << "Centre ID";
-                    std::cout << std::setw(11) << std::setfill(' ') << "Subject ID" << std::endl;
-                    std::cout << std::setw(170) << std::setfill('=') << "" << std::endl;
+                    std::cout << std::setw(26) << std::setfill(' ') << "Centre Name";
+                    std::cout << std::setw(11) << std::setfill(' ') << "Subject ID";
+                    std::cout << std::setw(16) << std::setfill(' ') << "Subject Name";
+                    std::cout << std::setw(17) << std::setfill(' ') << "Hourly Pay Rate" << std::endl;
+                    std::cout << std::setw(237) << std::setfill('=') << "" << std::endl;
                 }
                 count++;
                 index = ((page * 10) - 10 + count);
@@ -92,11 +102,14 @@ void filterTutors(int centreID, int subjectID, int tutorRatings)
                 std::cout << std::setw(20) << std::setfill(' ') << current->tutorName << " ";
                 std::cout << std::setw(30) << std::setfill(' ') << current->tutorAddress << " ";
                 std::cout << std::setw(15) << std::setfill(' ') << current->tutorPhoneNumber << " ";
-                std::cout << std::setw(20) << std::setfill(' ') << current->dateJoined << " ";
-                std::cout << std::setw(20) << std::setfill(' ') << current->dateTerminated;
-                std::cout << std::setw(10) << std::setfill(' ') << ratings << " ";
+                std::cout << std::setw(12) << std::setfill(' ') << current->dateJoined << " ";
+                std::cout << std::setw(16) << std::setfill(' ') << current->dateTerminated;
+                std::cout << std::setw(10) << std::setfill(' ') << std::fixed << std::setprecision(2) << ratings << " ";
                 std::cout << std::setw(10) << std::setfill(' ') << current->centreId << " ";
-                std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " " << std::endl;
+                std::cout << std::setw(25) << std::setfill(' ') << linearSearch(centreHead, centreTail, current->centreId)->centreName << " ";
+                std::cout << std::setw(10) << std::setfill(' ') << current->subjectId << " ";
+                std::cout << std::setw(15) << std::setfill(' ') << linearSearch(subjectHead, subjectTail, current->subjectId)->subjectName << " ";
+                std::cout << std::setw(16) << std::setfill(' ') << linearSearch(subjectHead, subjectTail, current->subjectId)->hourlyPayRate << std::endl;
             }
             else
             {
@@ -185,6 +198,7 @@ void displayTutor(Tutor *tutor)
     std::cout << "Centre ID: " << tutor->centreId << " - " << centreName << std::endl;
     std::string subjectName = linearSearch(subjectHead, subjectTail, tutor->subjectId)->subjectName;
     std::cout << "Subject ID: " << tutor->subjectId << " - " << subjectName << std::endl;
+    std::cout << "Hourly Pay Rate: " << linearSearch(subjectHead, subjectTail, tutor->subjectId)->hourlyPayRate << std::endl;
     std::cout << std::endl;
 }
 
@@ -552,4 +566,146 @@ void terminateTutor(int adminCentreId)
     {
         std::cout << "Tutor not found. Please try again." << std::endl;
     }
+}
+
+void duplicateTutorLinkedList(Tutor *&duplicatedhead, Tutor *&duplicatedTail, Tutor *originalHead)
+{
+    // traverse duplicated head linked list and delete every node
+    while (duplicatedhead != NULL)
+    {
+        Tutor *temp = duplicatedhead;
+        duplicatedhead = duplicatedhead->nextAddress;
+        delete temp;
+    }
+    duplicatedhead = NULL;
+    duplicatedTail = NULL;
+    Tutor *current = originalHead;
+    while (current != NULL)
+    {
+        Tutor *newObject = new Tutor(getListSize(duplicatedhead), current->tutorName, current->tutorAddress, current->tutorPhoneNumber, current->dateJoined, current->dateTerminated, current->totalRatings, current->ratingCount, current->centreId, current->subjectId);
+        // *newObject = *current;
+        insertAtEnd(newObject, duplicatedhead, duplicatedTail);
+        current = current->nextAddress;
+    }
+}
+
+// ---------------------------------------------- Sorting Algorithm ----------------------------------------------
+// Split a doubly linked list (DLL) into 2 DLLs of
+// half sizes
+Tutor *split(Tutor *head)
+{
+    Tutor *fast = head, *slow = head;
+    while (fast->nextAddress && fast->nextAddress->nextAddress)
+    {
+        fast = fast->nextAddress->nextAddress;
+        slow = slow->nextAddress;
+    }
+    Tutor *temp = slow->nextAddress;
+    slow->nextAddress = NULL;
+    return temp;
+}
+
+// -----------------------------------------------------------------Merge Sort for Ratings-----------------------------------------------------------------
+// merge linked list based on ratings
+Tutor *mergeRatings(Tutor *first, Tutor *second)
+{
+    // If first linked list is empty
+    if (!first)
+        return second;
+
+    // If second linked list is empty
+    if (!second)
+        return first;
+
+    float firstRatings = float(first->totalRatings) / float(first->ratingCount);
+    float secondRatings = float(second->totalRatings) / float(second->ratingCount);
+    // Pick the smaller value
+    if (firstRatings <= secondRatings)
+    {
+        first->nextAddress = mergeRatings(first->nextAddress, second);
+        first->nextAddress->previousAddress = first;
+        first->previousAddress = NULL;
+        return first;
+    }
+    else
+    {
+        second->nextAddress = mergeRatings(first, second->nextAddress);
+        second->nextAddress->previousAddress = second;
+        second->previousAddress = NULL;
+        return second;
+    }
+}
+
+// merge sort for ratings
+Tutor *mergeSortRatings(Tutor *head)
+{
+    if (!head || !head->nextAddress)
+        return head;
+    Tutor *second = split(head);
+
+    // Recur for left and right halves
+    head = mergeSortRatings(head);
+    second = mergeSortRatings(second);
+
+    // Merge the two sorted halves
+    return mergeRatings(head, second);
+}
+
+// -----------------------------------------------------------------Merge Sort for Hourly Pay Rate-----------------------------------------------------------------
+// linear search to search for subjects based on tutor's tutor id
+double HPRLinearSearch(Tutor *tutor, Subject *subjectHead)
+{
+    Subject *current = subjectHead;
+    while (current != NULL)
+    {
+        if (current->id == tutor->subjectId)
+        {
+            return current->hourlyPayRate;
+        }
+        current = current->nextAddress;
+    }
+    return NULL;
+}
+
+// merge linked list based on Hourly Pay Rate
+Tutor *mergeHPR(Tutor *first, Tutor *second)
+{
+    // If first linked list is empty
+    if (!first)
+        return second;
+
+    // If second linked list is empty
+    if (!second)
+        return first;
+
+    // Pick the smaller value
+    if (HPRLinearSearch(first, subjectHead) <= HPRLinearSearch(second, subjectHead))
+    {
+        first->nextAddress = mergeHPR(first->nextAddress, second);
+        first->nextAddress->previousAddress = first;
+        first->previousAddress = NULL;
+        return first;
+    }
+    else
+    {
+        second->nextAddress = mergeHPR(first, second->nextAddress);
+        second->nextAddress->previousAddress = second;
+        second->previousAddress = NULL;
+        return second;
+    }
+}
+
+// merge sort for Hourly Pay Rate
+Tutor *mergeSortHPR(Tutor *head)
+{
+    if (!head || !head->nextAddress)
+        return head;
+    Tutor *second = split(head);
+
+    // Recur for left and right halves
+    head = mergeSortHPR(head);
+    second = mergeSortHPR(second);
+
+    // Merge the two sorted halves
+    return mergeHPR(head, second);
 }
