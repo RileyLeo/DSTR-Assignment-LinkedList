@@ -2,6 +2,104 @@
 
 #include "functions.h"
 
+void generateReport()
+{
+    system("cls");
+    int activeTutors = 0;
+    Tutor *currentTutor = tutorHead;
+    Centre *currentCentre = centreHead;
+    Tutor *currentTutorByCentre = tutorHead;
+    Subject *currentSubjectByCentre = subjectHead;
+    while (currentTutor != NULL)
+    {
+        if (currentTutor->dateTerminated == "")
+        {
+            activeTutors++;
+        }
+        currentTutor = currentTutor->nextAddress;
+    }
+    std::cout << "eXcel Tuition Centre Report on " << getDateToday() << std::endl;
+    std::cout << "-----------------------------------------------------" << std::endl;
+    std::cout << "Total number of users: " << getListSize(userHead) << std::endl;
+    std::cout << "Total number of centres: " << getListSize(centreHead) << std::endl;
+    std::cout << "Total number of subjects: " << getListSize(subjectHead) << std::endl;
+    std::cout << "Total number of tutors " << std::endl;
+    std::cout << "   Active: " << activeTutors << std::endl;
+    std::cout << "   Terminated: " << getListSize(tutorHead) - activeTutors << std::endl;
+    std::cout << "   Archived: " << getListSize(archiveHead) << std::endl;
+    std::cout << std::endl
+              << "-----------------------------------------------------" << std::endl;
+    std::cout << "Centre Details" << std::endl;
+    std::cout << "-----------------------------------------------------" << std::endl;
+
+    int activeTutorsByCentre = 0;
+    int terminatedTutorsByCentre = 0;
+    int activeTutorsBySubject = 0;
+    int terminatedTutorsBySubject = 0;
+
+    // looping through each centre
+    while (currentCentre != NULL)
+    {
+        std::cout << std::endl
+                  << "-----------------------------------------------------" << std::endl;
+        std::cout << "Centre Name : " << currentCentre->centreName << std::endl;
+        std::cout << "-----------------------------------------------------" << std::endl;
+        std::cout << "   Tutors by Subjects" << std::endl;
+
+        // loop through the subjects to find out tutors for specific subjects in specific centres
+        while (currentSubjectByCentre != NULL)
+        {
+            // looping through entire tutor list
+            while (currentTutorByCentre != NULL)
+            {
+                if (currentTutorByCentre->centreId == currentCentre->id && currentTutorByCentre->dateTerminated == "" && currentTutorByCentre->subjectId == currentSubjectByCentre->id)
+                {
+                    activeTutorsBySubject++;
+                    if (currentTutorByCentre->centreId == currentCentre->id && currentTutorByCentre->dateTerminated == "")
+                    {
+                        activeTutorsByCentre++;
+                    }
+                }
+                else if (currentTutorByCentre->centreId == currentCentre->id && currentTutorByCentre->dateTerminated != "" && currentTutorByCentre->subjectId == currentSubjectByCentre->id)
+                {
+                    terminatedTutorsBySubject++;
+                    if (currentTutorByCentre->centreId == currentCentre->id && currentTutorByCentre->dateTerminated != "")
+                    {
+                        terminatedTutorsByCentre++;
+                    }
+                }
+                currentTutorByCentre = currentTutorByCentre->nextAddress;
+            }
+
+            //------ print out statements for each subject here ------
+            std::cout << "      Subject Name : " << currentSubjectByCentre->subjectName << std::endl;
+            std::cout << "         Active Tutors: " << activeTutorsBySubject << std::endl;
+            std::cout << "         Terminated Tutors: " << terminatedTutorsBySubject << std::endl;
+            std::cout << "-----------------------------------------------------" << std::endl;
+            // reset for next iteration
+            activeTutorsBySubject = 0;
+            terminatedTutorsBySubject = 0;
+            currentTutorByCentre = tutorHead;
+            // move on to next centre
+            currentSubjectByCentre = currentSubjectByCentre->nextAddress;
+        }
+        //------ print out statements for each centre here ------
+        std::cout << "Total Tutors in Centre" << std::endl;
+        std::cout << "   Active: " << activeTutorsByCentre << std::endl;
+        std::cout << "   Terminated: " << terminatedTutorsByCentre << std::endl;
+        std::cout << "-----------------------------------------------------" << std::endl
+                  << std::endl;
+        // re-initializing for next iteration
+        activeTutorsByCentre = 0;
+        terminatedTutorsByCentre = 0;
+        currentSubjectByCentre = subjectHead;
+        currentCentre = currentCentre->nextAddress;
+    }
+    std::cout << std::endl
+              << std::endl
+              << std::endl;
+}
+
 int manageObject(int choice)
 {
     std::string object = "";
@@ -199,13 +297,14 @@ void displayHrMenu()
     std::cout << "4 - Manage Tutors" << std::endl;
     std::cout << "5 - Add Ratings" << std::endl;
     std::cout << "6 - View Tutor Archive" << std::endl;
-    std::cout << "7 - Exit Program" << std::endl;
+    std::cout << "7 - Generate Report" << std::endl;
+    std::cout << "8 - Exit Program" << std::endl;
 
     int input;
     std::cout << "Enter your choice: ";
     std::cin >> input;
 
-    while (!std::cin.good() || input < 1 || input > 7)
+    while (!std::cin.good() || input < 1 || input > 8)
     {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -441,6 +540,9 @@ void displayHrMenu()
         displayArchiveList();
         displayHrMenu();
     case 7:
+        generateReport();
+        displayHrMenu();
+    case 8:
         std::cout << "Exiting program..." << std::endl;
         exit(0);
         break;

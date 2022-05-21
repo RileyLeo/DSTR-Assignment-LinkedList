@@ -27,15 +27,15 @@ void generateMockData()
     insertAtEnd(user4, userHead, userTail);
     // }
 
-    Subject *subject1 = new Subject(getListSize(subjectHead), "Maths", 20.00);  // 2
+    Subject *subject1 = new Subject(getListSize(subjectHead), "Maths", 50.00); // 2
     insertAtEnd(subject1, subjectHead, subjectTail);
-    Subject *subject2 = new Subject(getListSize(subjectHead), "Physics", 22.00); // 3
+    Subject *subject2 = new Subject(getListSize(subjectHead), "Physics", 60.00); // 3
     insertAtEnd(subject2, subjectHead, subjectTail);
-    Subject *subject3 = new Subject(getListSize(subjectHead), "English", 17.00); // 1
+    Subject *subject3 = new Subject(getListSize(subjectHead), "English", 40.00); // 1
     insertAtEnd(subject3, subjectHead, subjectTail);
-    Subject *subject4 = new Subject(getListSize(subjectHead), "Physics", 22.00); // 3
+    Subject *subject4 = new Subject(getListSize(subjectHead), "Science", 60.00); // 3
     insertAtEnd(subject4, subjectHead, subjectTail);
-    Subject *subject5 = new Subject(getListSize(subjectHead), "Chemistry", 22.00); // 3
+    Subject *subject5 = new Subject(getListSize(subjectHead), "Chemistry", 70.00); // 3
     insertAtEnd(subject5, subjectHead, subjectTail);
 
     Centre *centre1 = new Centre(getListSize(centreHead), "eXcel HQ", "Bukit Jalil", 1);
@@ -88,7 +88,6 @@ void generateMockData()
     insertAtEnd(tutor19, tutorHead, tutorTail);
     Tutor *tutor20 = new Tutor(getListSize(tutorHead), "Dadente Fyrous", "Taman OUG, Kuala Lumpur", "+60123456715", "03/08/2021", "", 32, 20, 2, 4);
     insertAtEnd(tutor20, tutorHead, tutorTail);
-
 }
 
 void archiveTerminated()
