@@ -582,7 +582,7 @@ void duplicateTutorLinkedList(Tutor *&duplicatedhead, Tutor *&duplicatedTail, Tu
     Tutor *current = originalHead;
     while (current != NULL)
     {
-        Tutor *newObject = new Tutor(getListSize(duplicatedhead), current->tutorName, current->tutorAddress, current->tutorPhoneNumber, current->dateJoined, current->dateTerminated, current->totalRatings, current->ratingCount, current->centreId, current->subjectId);
+        Tutor *newObject = new Tutor(current->id, current->tutorName, current->tutorAddress, current->tutorPhoneNumber, current->dateJoined, current->dateTerminated, current->totalRatings, current->ratingCount, current->centreId, current->subjectId);
         // *newObject = *current;
         insertAtEnd(newObject, duplicatedhead, duplicatedTail);
         current = current->nextAddress;
