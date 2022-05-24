@@ -271,7 +271,7 @@ void updateCentre()
                 std::cout << "Enter the admin id: ";
                 std::cin >> adminId;
             }
-            else if (centre != NULL)
+            else if (centre != NULL && centre->adminId != adminId)
             {
                 std::cout << "Admin is already in charge of a centre" << std::endl;
                 std::cout << "Enter the admin id: ";
