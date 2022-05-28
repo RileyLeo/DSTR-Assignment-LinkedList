@@ -13,8 +13,6 @@ void generateMockData()
 {
     // initialize system with new users, subjects, centres, and tutors
 
-    // for (int i = 0; i < 8; i++)
-    // {
     User *user = new User(getListSize(userHead), "hr", "123", 0);
     insertAtEnd(user, userHead, userTail);
     User *user1 = new User(getListSize(userHead), "admin1", "123", 1);
@@ -25,7 +23,6 @@ void generateMockData()
     insertAtEnd(user3, userHead, userTail);
     User *user4 = new User(getListSize(userHead), "admin3", "123", 1);
     insertAtEnd(user4, userHead, userTail);
-    // }
 
     Subject *subject1 = new Subject(getListSize(subjectHead), "Maths", 50.00); // 2
     insertAtEnd(subject1, subjectHead, subjectTail);

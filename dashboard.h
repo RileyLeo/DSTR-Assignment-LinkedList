@@ -55,18 +55,12 @@ void generateReport()
                 if (currentTutorByCentre->centreId == currentCentre->id && currentTutorByCentre->dateTerminated == "" && currentTutorByCentre->subjectId == currentSubjectByCentre->id)
                 {
                     activeTutorsBySubject++;
-                    if (currentTutorByCentre->centreId == currentCentre->id && currentTutorByCentre->dateTerminated == "")
-                    {
-                        activeTutorsByCentre++;
-                    }
+                    activeTutorsByCentre++;
                 }
                 else if (currentTutorByCentre->centreId == currentCentre->id && currentTutorByCentre->dateTerminated != "" && currentTutorByCentre->subjectId == currentSubjectByCentre->id)
                 {
                     terminatedTutorsBySubject++;
-                    if (currentTutorByCentre->centreId == currentCentre->id && currentTutorByCentre->dateTerminated != "")
-                    {
-                        terminatedTutorsByCentre++;
-                    }
+                    terminatedTutorsByCentre++;
                 }
                 currentTutorByCentre = currentTutorByCentre->nextAddress;
             }
