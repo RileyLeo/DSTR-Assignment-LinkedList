@@ -115,11 +115,13 @@ void filterTutors(int centreID, int subjectID, int tutorRatings, Tutor *head)
             {
                 skips++;
             }
-
             oneBeforeCurrent = current;
             current = current->nextAddress;
+
             while (count == 10 || current == NULL)
             {
+                push(skips);
+                skips = 0;
                 if (count == 0)
                 {
                     std::cout << "No records found!" << std::endl
@@ -143,13 +145,13 @@ void filterTutors(int centreID, int subjectID, int tutorRatings, Tutor *head)
                     else
                     {
                         current = oneBeforeCurrent;
-                        for (int i = 0; i < count + 9 + skips; i++)
+                        int total = count + 9 + pop() + pop();
+                        for (int i = 0; i < total; i++)
                         {
                             current = current->previousAddress;
                         }
                         system("cls");
                         count = 0;
-                        skips = 0;
                         page--;
                     }
                 }

@@ -194,6 +194,53 @@ Centre *centreLinearSearch(int adminId, Centre *head)
     return NULL;
 }
 
+// ---------------------------------------------- Stack Functions ----------------------------------------------
+// struct stack using linked list
+struct StackNode
+{
+    int data;
+    StackNode *nextAddress;
+} * top;
+
+// push stack
+void push(int data)
+{
+    if (data == 0)
+    {
+        return;
+    }
+    StackNode *newnode = new StackNode;
+    newnode->data = data;
+    newnode->nextAddress = NULL;
+
+    if (top == NULL)
+    {
+        top = newnode;
+    }
+    else
+    {
+        newnode->nextAddress = top;
+        top = newnode;
+    }
+}
+
+// pop stack
+int pop()
+{
+    if (top == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        int data = top->data;
+        StackNode *temp = top;
+        top = top->nextAddress;
+        delete temp;
+        return data;
+    }
+}
+
 // ---------------------------------------------- CRUD Functions ----------------------------------------------
 // insert object at end of different types of doubly linked lists
 template <class T>

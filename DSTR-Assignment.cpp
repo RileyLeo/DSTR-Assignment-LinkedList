@@ -42,6 +42,52 @@ void generateMockData()
     Centre *centre3 = new Centre(getListSize(centreHead), "eXcel Old Klang Road", "Kuchai Lama", 4);
     insertAtEnd(centre3, centreHead, centreTail);
 
+    for (int i = 0; i < 100; i++)
+    {
+        Tutor *tutor1 = new Tutor(getListSize(tutorHead), "Alan Doe", "ParkHill, Bukit Jalil", "+60123456789", "15/03/2020", "15/03/2021", 100, 20, 0, 0);
+    insertAtEnd(tutor1, tutorHead, tutorTail);
+    Tutor *tutor2 = new Tutor(getListSize(tutorHead), "Alfred Wyoming", "Pinnacle, Sri Petaling", "+60123456788", "03/08/2021", "", 80, 20, 0, 1);
+    insertAtEnd(tutor2, tutorHead, tutorTail);
+    Tutor *tutor3 = new Tutor(getListSize(tutorHead), "Alfonso Lee", "Old Klang Road, Kuchai Lama", "+60123456787", "15/03/2020", "", 95, 20, 0, 2);
+    insertAtEnd(tutor3, tutorHead, tutorTail);
+    Tutor *tutor4 = new Tutor(getListSize(tutorHead), "Altaria Lim", "SS15, Subang Jaya", "+60123456786", "15/03/2020", "15/03/2021", 75, 20, 0, 3);
+    insertAtEnd(tutor4, tutorHead, tutorTail);
+    Tutor *tutor5 = new Tutor(getListSize(tutorHead), "Anthony Tan", "Taman OUG, Kuala Lumpur", "+60123456785", "03/08/2021", "", 82, 20, 0, 4);
+    insertAtEnd(tutor5, tutorHead, tutorTail);
+
+    Tutor *tutor6 = new Tutor(getListSize(tutorHead), "Benjamin Lim", "ParkHill, Bukit Jalil", "+60123456709", "15/03/2020", "15/03/2021", 100, 20, 1, 0);
+    insertAtEnd(tutor6, tutorHead, tutorTail);
+    Tutor *tutor7 = new Tutor(getListSize(tutorHead), "Brother John", "Pinnacle, Sri Petaling", "+60123456708", "03/08/2021", "", 80, 20, 1, 1);
+    insertAtEnd(tutor7, tutorHead, tutorTail);
+    Tutor *tutor8 = new Tutor(getListSize(tutorHead), "Betty Yeet", "Old Klang Road, Kuchai Lama", "+60123456707", "15/03/2020", "", 95, 20, 1, 2);
+    insertAtEnd(tutor8, tutorHead, tutorTail);
+    Tutor *tutor9 = new Tutor(getListSize(tutorHead), "Brendan Kok", "SS15, Subang Jaya", "+60123456706", "15/03/2020", "15/03/2021", 75, 20, 1, 3);
+    insertAtEnd(tutor9, tutorHead, tutorTail);
+    Tutor *tutor10 = new Tutor(getListSize(tutorHead), "Bennette Tan", "Taman OUG, Kuala Lumpur", "+60123456705", "03/08/2021", "", 82, 20, 1, 4);
+    insertAtEnd(tutor10, tutorHead, tutorTail);
+
+    Tutor *tutor11 = new Tutor(getListSize(tutorHead), "Clarence Tee", "ParkHill, Bukit Jalil", "+60123456719", "15/03/2020", "15/03/2021", 100, 20, 2, 0);
+    insertAtEnd(tutor11, tutorHead, tutorTail);
+    Tutor *tutor12 = new Tutor(getListSize(tutorHead), "Cassandrea Teo", "Pinnacle, Sri Petaling", "+60123456718", "03/08/2021", "", 80, 20, 2, 1);
+    insertAtEnd(tutor12, tutorHead, tutorTail);
+    Tutor *tutor13 = new Tutor(getListSize(tutorHead), "Christina Tan", "Old Klang Road, Kuchai Lama", "+60123456717", "15/03/2020", "", 95, 20, 2, 2);
+    insertAtEnd(tutor13, tutorHead, tutorTail);
+    Tutor *tutor14 = new Tutor(getListSize(tutorHead), "Chrysan Kok", "SS15, Subang Jaya", "+60123456716", "15/03/2020", "15/03/2021", 75, 20, 2, 3);
+    insertAtEnd(tutor14, tutorHead, tutorTail);
+    Tutor *tutor15 = new Tutor(getListSize(tutorHead), "Coconut Tree", "Taman OUG, Kuala Lumpur", "+60123456715", "03/08/2021", "", 82, 20, 2, 4);
+    insertAtEnd(tutor15, tutorHead, tutorTail);
+
+    Tutor *tutor16 = new Tutor(getListSize(tutorHead), "Darren Tan", "ParkHill, Bukit Jalil", "+60123456719", "15/03/2020", "15/03/2022", 100, 20, 2, 0);
+    insertAtEnd(tutor16, tutorHead, tutorTail);
+    Tutor *tutor17 = new Tutor(getListSize(tutorHead), "Dickenson Yroh", "Pinnacle, Sri Petaling", "+60123456718", "03/08/2021", "03/04/2022", 70, 20, 2, 1);
+    insertAtEnd(tutor17, tutorHead, tutorTail);
+    Tutor *tutor18 = new Tutor(getListSize(tutorHead), "Damien Bro", "Old Klang Road, Kuchai Lama", "+60123456717", "15/03/2020", "", 55, 20, 2, 2);
+    insertAtEnd(tutor18, tutorHead, tutorTail);
+    Tutor *tutor19 = new Tutor(getListSize(tutorHead), "Dante Inferno", "SS15, Subang Jaya", "+60123456716", "15/03/2020", "15/03/2021", 65, 20, 2, 3);
+    insertAtEnd(tutor19, tutorHead, tutorTail);
+    Tutor *tutor20 = new Tutor(getListSize(tutorHead), "Dadente Fyrous", "Taman OUG, Kuala Lumpur", "+60123456715", "03/08/2021", "", 32, 20, 2, 4);
+    insertAtEnd(tutor20, tutorHead, tutorTail);
+    }
     Tutor *tutor1 = new Tutor(getListSize(tutorHead), "Alan Doe", "ParkHill, Bukit Jalil", "+60123456789", "15/03/2020", "15/03/2021", 100, 20, 0, 0);
     insertAtEnd(tutor1, tutorHead, tutorTail);
     Tutor *tutor2 = new Tutor(getListSize(tutorHead), "Alfred Wyoming", "Pinnacle, Sri Petaling", "+60123456788", "03/08/2021", "", 80, 20, 0, 1);
